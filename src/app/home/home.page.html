@@ -1,20 +1,24 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-title>
-      Blank
+      Calculator
     </ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
+    <!-- <ion-toolbar>
+      <ion-title size="large">Calculator</ion-title>
+    </ion-toolbar> -->
   </ion-header>
-
+  
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <app-calc-graphing *ngIf="mode === 'graphing'"></app-calc-graphing>
+    <app-calc-four-function *ngIf="mode === 'default'"></app-calc-four-function>
+    <!-- <app-calc-button-layout [mode]="mode"></app-calc-button-layout> -->
+
+    <ion-button (click)="changeMode()" fill="outline" shape="round">Change Mode</ion-button>
   </div>
 </ion-content>

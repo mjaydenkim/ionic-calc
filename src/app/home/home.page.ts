@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +7,15 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  mode = "default";
+
   constructor() {}
 
+  changeMode() {
+    if (this.mode == "default") {
+      this.mode = "graphing"
+    } else {
+      this.mode = "default"
+    }
+  }
 }

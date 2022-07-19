@@ -1,0 +1,18 @@
+<div #expression class="display">
+  <div *ngFor="let op of history">
+    <div class="expression history">
+      {{op[0]}}
+    </div>
+    <div class="answer history">
+      {{op[1]}}
+    </div>
+  </div>
+  <div class="expression latest">
+    {{display}}
+  </div>
+  <div class="answer latest">
+    {{answer}}
+  </div>
+</div>
+
+<app-calc-button-layout [mode]=this.mode [keyboardDisplayed]=this.keyboardMode></app-calc-button-layout>

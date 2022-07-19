@@ -1,0 +1,26 @@
+.display {
+    font-size: 2rem;
+    width: 18rem;
+    height: 8rem;
+    overflow-y: scroll;
+    border-radius: 8px;
+    border: 1px solid black;
+    text-align: right;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding-top: 0.2rem;
+}
+
+.expression {
+    height: 3rem;
+    font-size: 1.4rem;
+    white-space: pre-wrap;
+    text-align: left;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.answer {
+    text-align: right;
+}
