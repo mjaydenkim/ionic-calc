@@ -5,6 +5,7 @@ import process from '../utilities/process';
 import * as math from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
+import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 
 @Component({
   selector: 'app-calc-four-function',
@@ -34,8 +35,9 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     this.expression.nativeElement.scrollTop += 1000;
   }
 
-  constructor(public buttonService: CalcButtonService) { // where the service is declared. don't forget public -- allows the rest of the component to access the service
+  constructor(public buttonService: CalcButtonService, public toasterNotificationService: CalcToasterNotificationService) { // where the service is declared. don't forget public -- allows the rest of the component to access the service
     this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
+    this.toasterNotificationService = toasterNotificationService
   }
 
   ngOnInit() {
@@ -88,10 +90,19 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     } else if (event == "√") {
       this.display = Math.sqrt(parseInt(this.display)).toString()
     } else if (event == "=") {
-      this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 14}))
-      this.finished = true
+      try {
+        this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 14}))
+        this.finished = true
+      } catch (e) {
+        this.dangerToast(e)
+      }
     } else {
       this.display += event // TODO: handle rounding for large numbers
     }
   }
+
+  dangerToast(message: string) {
+    this.toasterNotificationService.showError(message, "Error")
+  }
+
 }

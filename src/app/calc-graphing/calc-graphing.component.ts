@@ -1,10 +1,13 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, VERSION, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CalcButtonService } from '../services/calc-button.service';
 import functionPlot from 'function-plot'
 
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
+
+import { CalcButtonService } from '../services/calc-button.service';
+import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
+import { FunctionPlotDatum } from 'function-plot/dist/types';
 
 @Component({
   selector: 'app-calc-graphing',
@@ -27,8 +30,9 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   expression = "x";
   display = "$x$";
 
-  constructor(public buttonService: CalcButtonService) {
+  constructor(public buttonService: CalcButtonService, public toasterNotificationService: CalcToasterNotificationService) {
     this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
+    this.toasterNotificationService = toasterNotificationService
   }
 
   ngAfterViewInit() {
@@ -47,49 +51,19 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     var x1 = this.domainLeft; // domain left
     var x2 = this.domainRight; // domain right
     var xs = 1.0 * (x2 - x1) / width;
-
-    var data = [];
-
-    // for (var i = 0; i < width; i++) {
-    //   var x = x1 + i * xs;
-    //   // var y = [eval(process(this.expression))]; // TODO: replace with mathjs and test
-    //   try {
-    //     var y = [math.evaluate(this.expression, {x: x})] // main change was made here
-    //   } catch (err) {
-    //     if (!this.errorCaught) {
-    //       console.log(err)
-    //       this.expression = err
-    //       this.errorCaught = true
-    //     }
-    //     var y = [undefined]
-    //   }
-    //   var row = [x];
-
-    //   if (y.length > 0) {
-    //     for (var j = 0; j < y.length; j++) {
-    //       if (!math.isNaN(y[j]) && isFinite(y[j])) { // if the value is complex, don't try to put it on the cartesian plane
-    //         row.push(y[j]);
-    //       } else {
-    //         row.push(undefined) // because dygraphs can't process a one-item list (can't work with xval only). effectively the yval
-    //       }
-    //     }
-    //   } else {
-    //     row.push(y[0]);
-    //   }
-    //   data.push(row);
-    // }
+    var data: FunctionPlotDatum = {
+      fn: process(this.expression),
+    }
     
-    // console.log(data)
-    // return new Dygraph(graph, data);
+    if (!this.expression.includes("ln(")) {
+      data.graphType = 'polyline'
+    } // ln untraceable ????
 
     return functionPlot({
       width: 300,
       height: 200,
       target: '#root',
-      data: [{
-        fn: process(this.expression),
-        graphType: 'polyline'
-      }],
+      data: [data],
     });
   }
 
@@ -123,7 +97,7 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
             group.push(this.createGraph(this.div1.nativeElement));
           }
         } catch (e) {
-          // implement "toast" -- pop-up notif
+          this.dangerToast(e)
         }
       }
     }
@@ -143,6 +117,10 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     this.domainLeft -= 1
     // this.domainRight -= 1
     this.createGraph(this.div1.nativeElement)
+  }
+
+  dangerToast(message: string) {
+    this.toasterNotificationService.showError(message, "Error")
   }
 
 }

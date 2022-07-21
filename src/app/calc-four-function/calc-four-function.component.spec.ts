@@ -2,8 +2,10 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
+import { ToastrModule } from 'ngx-toastr';
 import { CalcButtonLayoutComponent } from '../calc-button-layout/calc-button-layout.component';
 import { CalcButtonComponent } from '../calc-button/calc-button.component';
+import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 
 import { CalcFourFunctionComponent } from './calc-four-function.component';
 
@@ -14,7 +16,7 @@ describe('CalcFourFunctionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CalcFourFunctionComponent, CalcButtonComponent, CalcButtonLayoutComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), ToastrModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalcFourFunctionComponent);
