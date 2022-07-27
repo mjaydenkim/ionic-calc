@@ -6,6 +6,7 @@ import * as math from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
 import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
+import { e } from 'mathjs';
 
 @Component({
   selector: 'app-calc-four-function',
@@ -58,6 +59,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
   }
 
   handlePress(event) {
+    // console.log(math.evaluate("permutations(5,2)")) // !
     if (this.finished) {
       this.history = [...this.history, [this.display, this.answer]]
         // for (let i = 0; i < this.history.length; i++) {
@@ -87,14 +89,24 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
       this.answer = ""
     } else if (event == "←") {
       this.display = this.display.slice(0, -1)
-    } else if (event == "√") {
-      this.display = Math.sqrt(parseInt(this.display)).toString()
-    } else if (event == "=") {
-      try {
-        this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 14}))
-        this.finished = true
-      } catch (e) {
-        this.dangerToast(e)
+    } else if (event == "frac") {
+      let fraction = math.fraction(this.history[this.history.length - 1][1])
+      this.answer = fraction.n + "/" + fraction.d
+    }
+    // else if (event == "√") {
+    //   this.display = Math.sqrt(parseInt(this.display)).toString()
+    // } 
+    else if (event == "=") {
+      if (this.display.includes("nPr") || this.display.includes("nCr")) {
+        this.answer = String(this.evaluatePermComb(this.display))
+        this.finished = true // add pseudo-evaluation for permutations, combinations
+      } else {
+        try {
+          this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 14}))
+          this.finished = true
+        } catch (e) {
+          this.dangerToast(e)
+        }
       }
     } else {
       this.display += event // TODO: handle rounding for large numbers
@@ -103,6 +115,25 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
 
   dangerToast(message: string) {
     this.toasterNotificationService.showError(message, "Error")
+  }
+
+  evaluatePermComb(display: string) {
+    if (display.includes("nPr")) {
+      const [first, second] = display.split("nPr")
+      return math.permutations(
+        Number(math.format(math.evaluate(process(first)), {precision: 14})),
+        Number(math.format(math.evaluate(process(second)), {precision: 14}))
+      )
+      // return String()
+    } else if (display.includes("nCr")) {
+      const [first, second] = display.split("nCr")
+      return math.combinations(
+        Number(math.format(math.evaluate(process(first)), {precision: 14})),
+        Number(math.format(math.evaluate(process(second)), {precision: 14}))
+      )
+    } else {
+
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import functionPlot from 'function-plot'
+import functionPlot, { Chart } from 'function-plot'
 
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
@@ -44,17 +44,12 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     this.buttonSubscription.unsubscribe()
   }
 
-  createGraph(element) {
+  createGraph(element: Element): Chart {
 
-    var graph = element;
-    var width = 100;
-    var x1 = this.domainLeft; // domain left
-    var x2 = this.domainRight; // domain right
-    var xs = 1.0 * (x2 - x1) / width;
     var data: FunctionPlotDatum = {
       fn: process(this.expression),
     }
-    
+
     if (!this.expression.includes("ln(")) {
       data.graphType = 'polyline'
     } // ln untraceable ????

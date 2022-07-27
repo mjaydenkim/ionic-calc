@@ -19,6 +19,7 @@ export const keyLookups = {
   "e^x": "e^",
   "1/x": "1/",
   "10^x": "10^",
+  // "nPr": "permute("
 }
 
 @Component({
@@ -50,8 +51,9 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
   //   ["0", ".", "=", "+"]
   // ]
 
-  fourFunctionDefaultLayout = [
-    ["2nd", "log", "sin", "cos", "tan"],
+  fourFunctionDefaultLayout = [ // add calculus etc
+    ["2nd", "nPr", ",", "frac", "rad"], // 3rd should be % 
+    ["log", "sin", "cos", "tan", "abs"],
     ["√", "ln", "^", "ANS", "←"],
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
@@ -60,7 +62,8 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
   ]
 
   fourFunction2ndLayout = [
-    ["default", "10^x", "asin", "acos", "atan"],
+    ["default", "nCr", "!", "dec", "deg"], 
+    ["10^x", "asin", "acos", "atan"],
     ["x^2", "e^x", "1/x", "ANS", "CE"],
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
