@@ -59,7 +59,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
   }
 
   handlePress(event) {
-    // console.log(math.evaluate("permutations(5,2)")) // !
+    console.log(math.evaluate("permutations(5,2)")) // !
     if (this.finished) {
       this.history = [...this.history, [this.display, this.answer]]
         // for (let i = 0; i < this.history.length; i++) {
@@ -98,7 +98,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     // } 
     else if (event == "=") {
       if (this.display.includes("nPr") || this.display.includes("nCr")) {
-        this.answer = String(this.evaluatePermComb(this.display))
+        // this.answer = String(this.evaluatePermComb(this.display))
         this.finished = true // add pseudo-evaluation for permutations, combinations
       } else {
         try {
