@@ -19,7 +19,9 @@ export const keyLookups = {
   "e^x": "e^",
   "1/x": "1/",
   "10^x": "10^",
-  // "nPr": "permute("
+  e: "ｅ", // mathjax is thrown off by this
+  nPr: "permutations(",
+  nCr: "combinations("
 }
 
 @Component({
