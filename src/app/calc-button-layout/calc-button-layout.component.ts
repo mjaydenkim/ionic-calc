@@ -13,15 +13,13 @@ export const keyLookups = {
   asin: "asin(",
   acos: "acos(",
   ln: "ln(",
-  log: "log(",
+  log: "log10(",
   "√": "sqrt(",
   "x^2": "^2",
   "e^x": "e^",
   "1/x": "1/",
   "10^x": "10^",
   e: "ｅ", // mathjax is thrown off by this
-  nPr: "permutations(",
-  nCr: "combinations("
 }
 
 @Component({
@@ -37,7 +35,8 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
   
   smallButtons = [
     "2nd", "log", "ln", "ANS", "sin", "cos", "tan", "x", "√", "^", "←",
-    "default", "10^x", "asin", "acos", "atan", "x^2", "e^x", "1/x", "CE"
+    "default", "10^x", "asin", "acos", "atan", "x^2", "e^x", "1/x", "CE",
+    "nPr", "%", "frac", "rad", "abs", "nCr", "!", "dec", "deg", ","
   ]
 
   numButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", "="]
@@ -54,8 +53,8 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
   // ]
 
   fourFunctionDefaultLayout = [ // add calculus etc
-    ["2nd", "nPr", ",", "frac", "rad"], // 3rd should be % 
-    ["log", "sin", "cos", "tan", "abs"],
+    ["2nd", "nPr", "%", "frac", "rad"], // 3rd should be % 
+    ["log", "sin", "cos", "tan", ","],
     ["√", "ln", "^", "ANS", "←"],
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
@@ -65,7 +64,7 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
 
   fourFunction2ndLayout = [
     ["default", "nCr", "!", "dec", "deg"], 
-    ["10^x", "asin", "acos", "atan"],
+    ["10^x", "asin", "acos", "atan", "abs"],
     ["x^2", "e^x", "1/x", "ANS", "CE"],
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
