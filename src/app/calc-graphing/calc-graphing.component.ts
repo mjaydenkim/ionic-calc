@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import functionPlot, { Chart } from 'function-plot'
+import { evaluate } from 'mathjs'
 
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
@@ -8,6 +9,7 @@ import catchMathJaxError from '../utilities/catchMathJaxError';
 import { CalcButtonService } from '../services/calc-button.service';
 import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 import { FunctionPlotDatum } from 'function-plot/dist/types';
+import * as math from 'mathjs';
 
 @Component({
   selector: 'app-calc-graphing',
@@ -57,6 +59,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     return functionPlot({
       width: 300,
       height: 200,
+      xAxis: {domain: [this.domainLeft, this.domainRight]},
+      yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
       target: '#root',
       data: [data],
     });
@@ -84,6 +88,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
       const group = [];
       try {
         group.push(this.createGraph(this.div1.nativeElement));
+        this.domainRight = 10
+        this.domainLeft = -10
       } catch (e) {
         console.log(e.message)
         try {

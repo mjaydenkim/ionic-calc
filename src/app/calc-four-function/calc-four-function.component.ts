@@ -2,11 +2,21 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { CalcButtonService } from '../services/calc-button.service';
 import { Subscription } from 'rxjs'
 import process from '../utilities/process';
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
 import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
-import { e } from 'mathjs';
+
+const math = create(all)
+
+math.import({
+  ln: math.log,
+  // log10: function (value: number) {
+  //   return math.log(value, 10)
+  // }
+  nPr: math.permutations,
+  nCr: math.combinations
+})
 
 @Component({
   selector: 'app-calc-four-function',
@@ -59,7 +69,6 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
   }
 
   handlePress(event) {
-    console.log(math.evaluate("permutations(5,2)")) // !
     if (this.finished) {
       this.history = [...this.history, [this.display, this.answer]]
         // for (let i = 0; i < this.history.length; i++) {
@@ -97,17 +106,17 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     //   this.display = Math.sqrt(parseInt(this.display)).toString()
     // } 
     else if (event == "=") {
-      if (this.display.includes("nPr") || this.display.includes("nCr")) {
-        // this.answer = String(this.evaluatePermComb(this.display))
-        this.finished = true // add pseudo-evaluation for permutations, combinations
-      } else {
+      // if (this.display.includes("nPr") || this.display.includes("nCr")) {
+      //   this.answer = String(this.evaluatePermComb(this.display))
+      //   this.finished = true // add pseudo-evaluation for permutations, combinations
+      // } else {
         try {
-          this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 14}))
+          this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 13}))
           this.finished = true
         } catch (e) {
           this.dangerToast(e)
         }
-      }
+      // }
     } else {
       this.display += event // TODO: handle rounding for large numbers
     }
