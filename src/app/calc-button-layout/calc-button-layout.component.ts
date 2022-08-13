@@ -14,6 +14,8 @@ export const keyLookups = {
   acos: "acos(",
   ln: "ln(",
   log: "log10(",
+  nPr: "nPr(",
+  nCr: "nCr(",
   "√": "sqrt(",
   "x^2": "^2",
   "e^x": "e^",
