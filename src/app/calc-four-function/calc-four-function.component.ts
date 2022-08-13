@@ -6,6 +6,11 @@ import { create, all } from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
 import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
+import { Notify } from 'notiflix';
+
+Notify.init({
+  "clickToClose": true
+})
 
 const math = create(all)
 
@@ -14,8 +19,21 @@ math.import({
   // log10: function (value: number) {
   //   return math.log(value, 10)
   // }
-  nPr: math.permutations,
-  nCr: math.combinations
+  nCr: math.combinations,
+  // nPr: math.permutations,
+  nPr: function(n, r) {
+    try {
+      // console.log(n + " " + r)
+      return math.permutations(n,r)
+      // if (perm.isNaN()) {
+      //   this.dangerToast("Format of permutations should be nPr(n,r)")
+      // }
+    } catch (e) {
+      // console.log("Format of permutations should be nPr(n,r)")
+      Notify.failure("Format of permutations should be nPr(n,r)");
+    }
+  },
+  // nCr: math.combinations
 })
 
 @Component({
@@ -113,8 +131,8 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
         try {
           this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 13}))
           this.finished = true
-        } catch (e) {
-          this.dangerToast(e)
+        } catch (err) {
+          Notify.failure("" + err);
         }
       // }
     } else {

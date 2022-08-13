@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import functionPlot, { Chart } from 'function-plot'
-import { evaluate } from 'mathjs'
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
@@ -10,6 +10,10 @@ import { CalcButtonService } from '../services/calc-button.service';
 import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 import { FunctionPlotDatum } from 'function-plot/dist/types';
 import * as math from 'mathjs';
+
+Notify.init({
+  "clickToClose": true
+})
 
 @Component({
   selector: 'app-calc-graphing',
@@ -22,8 +26,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   mode: string = "graphing" // constant
 
   buttonSubscription: Subscription
-  domainRight: number = 3
-  domainLeft: number = -3
+  domainRight: number = 10
+  domainLeft: number = -10
   errorCaught: boolean = false
   keyboardMode: number = 0
 
@@ -98,7 +102,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
             group.push(this.createGraph(this.div1.nativeElement));
           }
         } catch (e) {
-          this.dangerToast(e)
+          // this.dangerToast(e)
+          Notify.failure("" + e);
         }
       }
     }
