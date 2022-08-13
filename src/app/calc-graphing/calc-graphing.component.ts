@@ -26,8 +26,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   mode: string = "graphing" // constant
 
   buttonSubscription: Subscription
-  domainRight: number = 3
-  domainLeft: number = -3
+  domainRight: number = 10
+  domainLeft: number = -10
   errorCaught: boolean = false
   keyboardMode: number = 0
 
