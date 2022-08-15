@@ -16,24 +16,20 @@ const math = create(all)
 
 math.import({
   ln: math.log,
-  // log10: function (value: number) {
-  //   return math.log(value, 10)
-  // }
-  nCr: math.combinations,
-  // nPr: math.permutations,
-  nPr: function(n, r) {
+  nCr: function(n, r) {
     try {
-      // console.log(n + " " + r)
-      return math.permutations(n,r)
-      // if (perm.isNaN()) {
-      //   this.dangerToast("Format of permutations should be nPr(n,r)")
-      // }
+      return math.combinations(n,r)
     } catch (e) {
-      // console.log("Format of permutations should be nPr(n,r)")
       Notify.failure("Format of permutations should be nPr(n,r)");
     }
   },
-  // nCr: math.combinations
+  nPr: function(n, r) {
+    try {
+      return math.permutations(n,r)
+    } catch (e) {
+      Notify.failure("Format of permutations should be nPr(n,r)");
+    }
+  },
 })
 
 @Component({
@@ -89,10 +85,6 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
   handlePress(event) {
     if (this.finished) {
       this.history = [...this.history, [this.display, this.answer]]
-        // for (let i = 0; i < this.history.length; i++) {
-        //   this.display += (this.history[i].toString()) + "\n";
-        //   console.log(this.display)
-        // }
         if (this.operators.includes(event)) {
           this.display = this.answer
         }
@@ -120,21 +112,13 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
       let fraction = math.fraction(this.history[this.history.length - 1][1])
       this.answer = fraction.n + "/" + fraction.d
     }
-    // else if (event == "√") {
-    //   this.display = Math.sqrt(parseInt(this.display)).toString()
-    // } 
     else if (event == "=") {
-      // if (this.display.includes("nPr") || this.display.includes("nCr")) {
-      //   this.answer = String(this.evaluatePermComb(this.display))
-      //   this.finished = true // add pseudo-evaluation for permutations, combinations
-      // } else {
         try {
           this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 13}))
           this.finished = true
         } catch (err) {
           Notify.failure("" + err);
         }
-      // }
     } else {
       this.display += event // TODO: handle rounding for large numbers
     }
@@ -151,7 +135,6 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
         Number(math.format(math.evaluate(process(first)), {precision: 14})),
         Number(math.format(math.evaluate(process(second)), {precision: 14}))
       )
-      // return String()
     } else if (display.includes("nCr")) {
       const [first, second] = display.split("nCr")
       return math.combinations(
