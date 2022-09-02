@@ -17,7 +17,7 @@ const fakeStore = {
     }
 }
 
-const roomStore = new BehaviorSubject(defaultStore);
+export const roomStore = new BehaviorSubject(defaultStore); // create test file, run a few basic tests (getActive/setActive are good functions to start, can use fakeStore)
 
 export default {
     getActive(): Observable<any> {
@@ -69,6 +69,13 @@ export default {
 
         } else {
             console.error("Item being added needs ID property")
+        }
+    },
+    deleteOne(id: string) {
+        const currentState = roomStore.getValue()
+        if (id in currentState.all) {
+            delete currentState.all[id]
+            this.setState({all: currentState.all})
         }
     },
     setState(partialState: any) {
