@@ -1,3 +1,25 @@
-<p>
-  room works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Create a room
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create a room</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form (submit)="handleSubmit($event)">
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input [value]="name" (change)="updateName($event)"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit">Submit</ion-button>
+  </form>
+
+</ion-content>
