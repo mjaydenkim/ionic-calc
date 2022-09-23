@@ -6,7 +6,7 @@ const defaultStore = {
     all: {} // all is a key-value pair of room ID -- room properties. should be able to look up a room by its ID, get students as property
 }
 
-const fakeStore = {
+export const fakeStore = {
     active: "1024",
     all: {
         1024: {
@@ -22,7 +22,7 @@ export const roomStore = new BehaviorSubject(defaultStore); // create test file,
 export default {
     getActive(): Observable<any> {
         return roomStore.asObservable().pipe(
-            map(store => store.active ? store.all[store.active] : null) // purpose of fn is to return the active room from its ID
+            map(store => store.active && store.active in store.all ? store.all[store.active] : null) // purpose of fn is to return the active room from its ID
         )
     },
     setActive(id: string) {
@@ -30,13 +30,9 @@ export default {
             active: id
         })
     },
-    getAll() {
-        const objectToArray = (allItemsObject: any) => {
-            const ids = Object.keys(allItemsObject)
-            return ids.map((id) => allItemsObject[id])
-        }
+    getAll(): any {
         return roomStore.asObservable().pipe(
-            map(store => objectToArray(store.all))
+            map(store => Object.values(store.all))
         )
     },
     setAll(objects: any[]) {

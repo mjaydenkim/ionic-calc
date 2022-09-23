@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Room List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>ID:</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let room of rooms">
+      <ion-col>
+        {{room.teacher}}
+      </ion-col>
+      <ion-col>
+        {{room.id}}
+      </ion-col>
+    </ion-row>
+    <!-- add a name column next, make sure it links to store -->
+    
+  </ion-grid>
+</ion-content>
