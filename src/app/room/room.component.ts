@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import storeMethods from '../../models/Room/store'
-
-import { API, graphqlOperation } from 'aws-amplify'
-import { createRoom } from 'src/graphql/mutations';
-
-import { v4  as uuid } from 'uuid'
+import Room from '../../models/Room'
 
 @Component({
   selector: 'app-room',
@@ -24,17 +19,15 @@ export class RoomComponent implements OnInit {
     this.name = event.target.value
   }
 
-  async handleSubmit(event: any) {
+  handleSubmit(event: any) {
     event.preventDefault() 
     console.log("Creating a room with name: " + this.name)
     // TODO: Backend
     // const roomResults: any = await API.graphql(graphqlOperation(createRoom, {name: this.name}))
     // console.log(roomResults)
     // frontend only
-    let room = {
-      id: uuid(),
-      name: this.name,
-      code: "test code" // nanoId
-    }
+    Room.create(this.name).then((newRoom) => {
+      console.log(newRoom) // code isn't updated
+    })
   }
 }
