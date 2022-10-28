@@ -2,11 +2,16 @@ ion-grid {
     --ion-grid-column-padding: 10px;
     border-collapse: collapse;
     border-style: hidden;
+
+    ion-row:nth-child(2n-1) {
+      background-color: ivory;
+    }
     
     ion-row:first-child {
       background-color:  #2dd36f;
       font-weight: bold;
     }
+
     ion-col {
       border: 1px solid black;
       border-bottom: 0;
@@ -19,4 +24,27 @@ ion-grid {
     ion-row:last-child {
       border-bottom: 1px solid black;
     }
-  }
+}
+
+.count {
+  margin-right: 1rem;
+}
+
+.student-name:nth-child(2n-1) {
+  margin-left: 0.5rem;
+}
+
+.Online {
+  color: forestgreen;
+  font-weight: 500;
+}
+
+.Away {
+  color: rgb(218, 149, 21);
+  font-weight: 500;
+}
+
+.Offline {
+  color: darkgray;
+  font-weight: 500;
+}

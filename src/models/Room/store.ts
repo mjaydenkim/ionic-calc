@@ -11,13 +11,74 @@ export const fakeStore = {
     all: {
         1024: {
             id: "1024",
-            students: [],
-            teacher: "Teacher Name"
+            code: "ab12",
+            name: "First Room",
+            student: {
+                items: [{
+                    id: "1",
+                    name: "Student 1",
+                    email: "a@b.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "1",
+                name: "Teacher Name",
+                email: "b@c.com",
+                updatedAt: Date.now().toLocaleString()
+            }
+        },
+        2048: {
+            id: "2048",
+            code: "cd34",
+            name: "Second Room",
+            student: {
+                items: [{
+                    id: "2",
+                    name: "Student 2",
+                    email: "c@d.com",
+                    status: "Away",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "2",
+                name: "Teacher 2 Name",
+                email: "d@e.com",
+                updatedAt: Date.now().toLocaleString()
+            }
+        },
+        4096: {
+            id: "4096",
+            code: "ef56",
+            name: "Third Room",
+            student: {
+                items: [{
+                    id: "3",
+                    name: "Student 3",
+                    email: "e@f.com",
+                    status: "Offline",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "4",
+                    name: "Student 4",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "3",
+                name: "Teacher 3 Name",
+                email: "g@h.com",
+                updatedAt: Date.now().toLocaleString()
+            }
         }
     }
 }
 
-export const roomStore = new BehaviorSubject(defaultStore); // create test file, run a few basic tests (getActive/setActive are good functions to start, can use fakeStore)
+export const roomStore = new BehaviorSubject(fakeStore); // create test file, run a few basic tests (getActive/setActive are good functions to start, can use fakeStore)
 
 export default {
     getActive(): Observable<any> {

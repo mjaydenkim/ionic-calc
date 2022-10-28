@@ -7,19 +7,30 @@
 <ion-content>
   <ion-grid>
 
+    <!-- Header -->
     <ion-row>
-      <ion-col>ID:</ion-col>
+      <ion-col>Name</ion-col>
+      <ion-col>Code</ion-col>
+      <ion-col>Students</ion-col>
     </ion-row>
 
+    <!-- Table Body -->
     <ion-row *ngFor="let room of rooms">
       <ion-col>
-        {{room.teacher}}
+        {{room.name}}
       </ion-col>
       <ion-col>
-        {{room.id}}
+        {{room.code}}
+      </ion-col>
+      <ion-col>
+        <strong class="count">{{room.student.items.length}}</strong>
+        (<span *ngIf="room.student.items.length >= 1" class="student-name" [ngClass]="room.student.items[0].status">{{room.student.items[0].name}}</span><span *ngIf="room.student.items.length == 1">)</span>
+        <!-- <status-indicator></status-indicator> -->
+        <span *ngIf="room.student.items.length >= 2" class="student-name" [ngClass]="room.student.items[1].status"> {{room.student.items[1].name}}</span><span *ngIf="room.student.items.length == 2">)</span>
+        <!-- <status-indicator></status-indicator> -->
+        <span *ngIf="room.student.items.length >= 3" class="student-name">...)</span>
       </ion-col>
     </ion-row>
-    <!-- add a name column next, make sure it links to store -->
     
   </ion-grid>
 </ion-content>

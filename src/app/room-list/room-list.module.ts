@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RoomListPageRoutingModule } from './room-list-routing.module';
 
 import { RoomListPage } from './room-list.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { RoomListPage } from './room-list.page';
     FormsModule,
     IonicModule,
     RoomListPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RoomListPage],
 })

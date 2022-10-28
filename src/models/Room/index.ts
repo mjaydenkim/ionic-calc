@@ -9,6 +9,9 @@ import { v4 as uuid } from 'uuid'
 type Rooms = ListRoomsQuery['listRooms']['items']
 type Room = CreateRoomMutation['createRoom']
 
+var aws = require('aws-sdk')
+var ddb = new aws.DynamoDB()
+
 export default {
     async load(): Promise<Rooms> {
         try {
@@ -25,28 +28,28 @@ export default {
 
     async create(name: string) {
         console.log(Auth.currentAuthenticatedUser())
-        // try {
-        //     const results: any = this.postNewRoom({
-        //         name,
-        //         id: uuid(),
-        //         code: nanoid(4),
-        //         roomTeacherId: "lol"
-        //     })
+        try {
+            const results: any = this.postNewRoom({
+                name,
+                id: uuid(),
+                code: nanoid(4),
+                roomTeacherId: "lol"
+            })
             
-        //     // await API.graphql(graphqlOperation(createRoom, {
-        //     //     input: {
-        //     //         name,
-        //     //         id: uuid(),
-        //     //         code: nanoid(4)
-        //     //     }
-        //     // }))
-        //     if (results && results.createRoom) {
-        //         roomStore.addOne(results.createRoom)
-        //         return results.createRoom
-        //     }
-        // } catch (e) {
-        //     console.error(e)
-        // }
+            // await API.graphql(graphqlOperation(createRoom, {
+            //     input: {
+            //         name,
+            //         id: uuid(),
+            //         code: nanoid(4)
+            //     }
+            // }))
+            if (results && results.createRoom) {
+                roomStore.addOne(results.createRoom)
+                return results.createRoom
+            }
+        } catch (e) {
+            console.error(e)
+        }
     },
 
     // async postNewRoom(input: CreateRoomInput): Promise<{data: CreateRoomMutation}> {
@@ -55,5 +58,4 @@ export default {
           createRoom, { input: input }
         ));
       },
-
-}
+};
