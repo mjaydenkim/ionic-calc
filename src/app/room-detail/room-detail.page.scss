@@ -3,23 +3,24 @@ ion-grid {
     border-collapse: collapse;
     border-style: hidden;
 
-    ion-row {
-      cursor: pointer;
-    }
+    // ion-row {
+    //   cursor: pointer;
+    // }
 
     ion-row:nth-child(2n-1) {
       background-color: ivory;
     }
     
-    ion-row:hover {
-      background-color: gray;
-    }
+    // ion-row:hover {
+    //   background-color: gray;
+    // }
 
     ion-row:first-child {
       background-color:  #2dd36f;
       font-weight: bold;
       cursor: auto;
     }
+
     ion-col {
       border: 1px solid black;
       border-bottom: 0;
@@ -32,4 +33,19 @@ ion-grid {
     ion-row:last-child {
       border-bottom: 1px solid black;
     }
-  }
+}
+
+.Online {
+  color: forestgreen;
+  font-weight: 500;
+}
+
+.Away {
+  color: rgb(218, 149, 21);
+  font-weight: 500;
+}
+
+.Offline {
+  color: darkgray;
+  font-weight: 500;
+}

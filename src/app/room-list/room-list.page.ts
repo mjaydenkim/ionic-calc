@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import storeMethods from '../../models/Room/store'
 import { Subscription } from 'rxjs'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -12,7 +13,7 @@ export class RoomListPage implements OnInit, OnDestroy {
   rooms: any[] = []
   roomSub: Subscription
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     // do what we did in the home page (getall) --> updating a local variable within the component
@@ -22,6 +23,11 @@ export class RoomListPage implements OnInit, OnDestroy {
         this.rooms = rooms
       }
     )
+  }
+
+  selectRow(index: number) {
+    console.log(this.rooms[index])
+    this.router.navigateByUrl("/room/" + this.rooms[index].id)
   }
 
   ngOnDestroy() {

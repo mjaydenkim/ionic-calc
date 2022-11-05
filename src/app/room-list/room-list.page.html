@@ -8,15 +8,22 @@
   <ion-grid>
 
     <ion-row>
-      <ion-col>ID:</ion-col>
+      <ion-col>Name</ion-col>
+      <ion-col>Code</ion-col>
+      <ion-col>Students</ion-col>
+      <ion-col>Status</ion-col>
     </ion-row>
 
-    <ion-row *ngFor="let room of rooms">
+    <!-- Table Body -->
+    <ion-row *ngFor="let room of rooms; let i=index" (click)="selectRow(i)">
       <ion-col>
         {{room.teacher}}
       </ion-col>
       <ion-col>
         {{room.id}}
+      </ion-col>
+      <ion-col>
+        {{room.status}}
       </ion-col>
     </ion-row>
     <!-- add a name column next, make sure it links to store -->

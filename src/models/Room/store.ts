@@ -11,8 +11,135 @@ export const fakeStore = {
     all: {
         1024: {
             id: "1024",
-            students: [],
-            teacher: "Teacher Name"
+            code: "ab12",
+            name: "First Room",
+            student: {
+                items: [{
+                    id: "1",
+                    name: "Student 1",
+                    email: "a@b.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "1",
+                name: "Teacher Name",
+                email: "b@c.com",
+                updatedAt: Date.now().toLocaleString()
+            },
+            status: "Offline"
+        },
+        2048: {
+            id: "2048",
+            code: "cd34",
+            name: "Second Room",
+            student: {
+                items: [{
+                    id: "2",
+                    name: "Student 2",
+                    email: "c@d.com",
+                    status: "Away",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "2",
+                name: "Teacher 2 Name",
+                email: "d@e.com",
+                updatedAt: Date.now().toLocaleString()
+            },
+            status: "Online"
+        },
+        4096: {
+            id: "4096",
+            code: "ef56",
+            name: "Third Room",
+            student: {
+                items: [{
+                    id: "3",
+                    name: "Student 3",
+                    email: "e@f.com",
+                    status: "Offline",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "4",
+                    name: "Student 4",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "3",
+                name: "Teacher 3 Name",
+                email: "g@h.com",
+                updatedAt: Date.now().toLocaleString()
+            },
+            status: "Online"
+        },
+        8192: {
+            id: "8192",
+            code: "gh78",
+            name: "Fourth Room",
+            student: {
+                items: [{
+                    id: "3",
+                    name: "Student 3",
+                    email: "e@f.com",
+                    status: "Offline",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "4",
+                    name: "Student 4",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "5",
+                    name: "Student 5",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "6",
+                    name: "Student 6",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "7",
+                    name: "Student 7",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "8",
+                    name: "Student 8",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "9",
+                    name: "Student 9",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }, {
+                    id: "10",
+                    name: "Student 10",
+                    email: "f@g.com",
+                    status: "Online",
+                    updatedAt: Date.now().toLocaleString()
+                }]
+            },
+            teacher: {
+                id: "3",
+                name: "Teacher 3 Name",
+                email: "g@h.com",
+                updatedAt: Date.now().toLocaleString()
+            },
+            status: "Online"
         }
     }
 }
@@ -46,7 +173,7 @@ export default {
             all: nextAll
         })
     },
-    getOne(id: string) {
+    getOne(id: string): Observable<any> {
         return roomStore.asObservable().pipe(
             map(store => store.all[id] ? store.all[id] : null)
         )
