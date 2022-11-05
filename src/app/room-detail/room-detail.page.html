@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{room.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+
+    <!-- Header -->
+
+    <ion-row>
+      <ion-col>Name</ion-col>
+      <ion-col>Status</ion-col>
+    </ion-row>
+
+    <!-- Table Body -->
+
+    <ion-row *ngFor="let student of students">
+      <ion-col>{{student.name}}</ion-col>
+      <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
+    </ion-row>
+
+</ion-grid>
+</ion-content>

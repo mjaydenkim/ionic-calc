@@ -12,10 +12,11 @@
       <ion-col>Name</ion-col>
       <ion-col>Code</ion-col>
       <ion-col>Students</ion-col>
+      <ion-col>Status</ion-col>
     </ion-row>
 
     <!-- Table Body -->
-    <ion-row *ngFor="let room of rooms">
+    <ion-row *ngFor="let room of rooms; let i=index" (click)="selectRow(i)">
       <ion-col>
         {{room.name}}
       </ion-col>
@@ -29,6 +30,9 @@
         <span *ngIf="room.student.items.length >= 2" class="student-name" [ngClass]="room.student.items[1].status"> {{room.student.items[1].name}}</span><span *ngIf="room.student.items.length == 2">)</span>
         <!-- <status-indicator></status-indicator> -->
         <span *ngIf="room.student.items.length >= 3" class="student-name">...)</span>
+      </ion-col>
+      <ion-col>
+        {{room.status}}
       </ion-col>
     </ion-row>
     
