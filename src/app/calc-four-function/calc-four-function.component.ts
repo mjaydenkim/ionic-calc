@@ -5,7 +5,6 @@ import process from '../utilities/process';
 import { create, all } from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
-import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 import { Notify } from 'notiflix';
 
 Notify.init({
@@ -37,6 +36,7 @@ math.import({
   templateUrl: './calc-four-function.component.html',
   styleUrls: ['./calc-four-function.component.scss'],
 })
+
 export class CalcFourFunctionComponent implements OnInit, OnDestroy {
 
   mode: string = "default" // constant
@@ -60,9 +60,8 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     this.expression.nativeElement.scrollTop += 1000;
   }
 
-  constructor(public buttonService: CalcButtonService, public toasterNotificationService: CalcToasterNotificationService) { // where the service is declared. don't forget public -- allows the rest of the component to access the service
+  constructor(public buttonService: CalcButtonService) { // where the service is declared. don't forget public -- allows the rest of the component to access the service
     this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
-    this.toasterNotificationService = toasterNotificationService
   }
 
   ngOnInit() {
@@ -122,10 +121,6 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     } else {
       this.display += event // TODO: handle rounding for large numbers
     }
-  }
-
-  dangerToast(message: string) {
-    this.toasterNotificationService.showError(message, "Error")
   }
 
   evaluatePermComb(display: string) {

@@ -7,7 +7,6 @@ import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
 
 import { CalcButtonService } from '../services/calc-button.service';
-import { CalcToasterNotificationService } from '../services/calc-toaster-notification.service';
 import { FunctionPlotDatum } from 'function-plot/dist/types';
 import * as math from 'mathjs';
 
@@ -36,9 +35,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   expression = "x";
   display = "$x$";
 
-  constructor(public buttonService: CalcButtonService, public toasterNotificationService: CalcToasterNotificationService) {
+  constructor(public buttonService: CalcButtonService) {
     this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
-    this.toasterNotificationService = toasterNotificationService
   }
 
   ngAfterViewInit() {
@@ -123,10 +121,6 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     this.domainLeft -= 1
     // this.domainRight -= 1
     this.createGraph(this.div1.nativeElement)
-  }
-
-  dangerToast(message: string) {
-    this.toasterNotificationService.showError(message, "Error")
   }
 
 }
