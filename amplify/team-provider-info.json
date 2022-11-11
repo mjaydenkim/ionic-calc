@@ -9,7 +9,24 @@
       "UnauthRoleName": "amplify-simplecalc-dev-161002-unauthRole",
       "StackName": "amplify-simplecalc-dev-161002",
       "StackId": "arn:aws:cloudformation:us-west-1:176247501830:stack/amplify-simplecalc-dev-161002/3dd31700-12b8-11ed-aa60-028554346c93",
-      "AmplifyAppId": "d1pjqvecnlqae5"
+      "AmplifyAppId": "d1pjqvecnlqae5",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-simplecalc-dev-161002-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "simplecalcbca74913bca74913": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "simplecalcbca74913bca74913CustomMessage": {
+          "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
+          "s3Key": "amplify-builds/simplecalcbca74913bca74913CustomMessage-745a4c3378594861482f-build.zip"
+        },
+        "simplecalcbca74913bca74913PostConfirmation": {
+          "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
+          "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-763876514651616c707a-build.zip"
+        }
+      }
     }
   }
 }
