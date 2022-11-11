@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { MathjaxModule } from 'mathjax-angular';
-import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +16,6 @@ import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    ToastrModule.forRoot(),
     BrowserAnimationsModule,
     MathjaxModule.forRoot(
     {
