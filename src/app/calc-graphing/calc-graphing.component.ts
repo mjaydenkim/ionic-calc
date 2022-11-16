@@ -54,9 +54,9 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
       fn: process(this.expression),
     }
 
-    if (!this.expression.includes("ln(")) {
-      data.graphType = 'polyline'
-    } // ln untraceable ????
+    // if (!this.expression.includes("ln(")) {
+    //   data.graphType = 'polyline'
+    // } // ln untraceable ????
 
     return functionPlot({
       width: 300,
@@ -108,7 +108,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     else {
       this.expression += event // TODO: handle rounding for large numbers
     }
-    this.display = "$" + this.expression + "$"
+    this.display = this.expression
+    console.log(this.display)
   }
 
   handleRight() {

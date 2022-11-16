@@ -1,17 +1,17 @@
 <div #expression class="display">
   <div *ngFor="let op of history">
-    <div class="expression history" [mathjax]="'$' + op[0] + '$'">
-      <!-- {{op[0]}} -->
+    <div class="expression history">
+      <ng-katex [equation]="op[0]"></ng-katex>
     </div>
-    <div class="answer history" [mathjax]="'$' + op[1] + '$'"> <!-- fraction images cut off !-->
-      <!-- {{op[1]}} -->
+    <div class="answer history"> <!-- fraction images cut off !-->
+      <ng-katex [equation]="op[1]"></ng-katex>
     </div>
   </div>
-  <div class="expression latest" [mathjax]="'$' + display + '$'">
-    <!-- {{display}} -->
+  <div class="expression latest">
+    <ng-katex [equation]="display"></ng-katex>
   </div>
-  <div class="answer latest" [mathjax]="'$' + answer + '$'">
-    <!-- {{answer}} -->
+  <div class="answer latest" >
+    <ng-katex [equation]="answer"></ng-katex>
   </div>
 </div>
 

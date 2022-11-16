@@ -9,9 +9,7 @@ import { CalcButtonComponent } from '../calc-button/calc-button.component';
 import { CalcGraphingComponent } from '../calc-graphing/calc-graphing.component';
 import { CalcFourFunctionComponent } from '../calc-four-function/calc-four-function.component';
 import { CalcButtonLayoutComponent } from '../calc-button-layout/calc-button-layout.component';
-
-import { MathjaxModule } from 'mathjax-angular';
-
+import { KatexModule } from 'ng-katex';
 
 @NgModule({
   imports: [
@@ -19,7 +17,7 @@ import { MathjaxModule } from 'mathjax-angular';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    MathjaxModule.forChild()
+    KatexModule,
   ],
   declarations: [HomePage, CalcButtonComponent, CalcGraphingComponent, CalcFourFunctionComponent, CalcButtonLayoutComponent]
 })
