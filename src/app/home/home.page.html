@@ -20,6 +20,12 @@
     <!-- <app-calc-button-layout [mode]="mode"></app-calc-button-layout> -->
 
     <ion-button (click)="changeMode()" fill="outline" shape="round">Change Mode</ion-button><br/>
-    <ion-button (click)="joinRoom()" fill="clear" color="secondary">Join Room</ion-button>
+    <ion-button *ngIf="isJoining === false" (click)="joinRoom()" fill="clear" color="secondary">Join Room</ion-button>
+    <form *ngIf="isJoining === true" (submit)="finishJoin()" class="room-code">
+      <ion-input [(ngModel)]="code" name="code" placeholder="Join code" maxLength="4"></ion-input>
+      <ion-button type="submit" fill="clear" color="secondary">Next</ion-button>
+    </form>
   </div>
 </ion-content>
+
+<!-- begin by entering room code. then show a little bit of information (teacher/subject, etc). if it seems correct, you go to a form for the student to provide additionanl info, like name/email/other auth measures. submit form -> finalize joining process, then join room -->

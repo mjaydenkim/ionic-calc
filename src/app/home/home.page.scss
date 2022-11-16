@@ -29,3 +29,12 @@
 .centered {
   margin: 0 auto;
 }
+
+.room-code {
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  margin: 0 auto;
+  padding-right: 3rem;
+}

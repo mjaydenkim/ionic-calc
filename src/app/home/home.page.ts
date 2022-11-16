@@ -8,6 +8,8 @@ import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/cor
 export class HomePage {
 
   mode = "default";
+  isJoining: boolean = false
+  code: string = ""
 
   constructor() {}
 
@@ -17,5 +19,15 @@ export class HomePage {
     } else {
       this.mode = "default"
     }
+  }
+
+  joinRoom() {
+    // change state of ui
+    this.isJoining = true
+  }
+
+  finishJoin() {
+    console.log("finished joining. code: " + this.code)
+    this.isJoining = false
   }
 }
