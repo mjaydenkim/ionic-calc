@@ -54,7 +54,7 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
       fn: process(this.expression),
     }
 
-    if (!this.expression.includes("ln(")) {
+    if (this.expression.includes("ln(")) {
       data.graphType = 'polyline'
     } // ln untraceable ????
 
@@ -62,9 +62,13 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
       width: 300,
       height: 200,
       xAxis: {domain: [this.domainLeft, this.domainRight]},
-      yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
+      // yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
+      data: [{
+        fn: this.expression,
+        // graphType: 'polyline'
+      }],
       target: '#root',
-      data: [data],
+      // data: [data],
     });
   }
 

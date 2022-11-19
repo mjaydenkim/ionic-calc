@@ -2,6 +2,19 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
+enum ModelOperation {
+  create
+  update
+  delete
+  read # Short-hand to allow "get", "list", "sync", "listen", and "search"
+  
+  get # Retrieves an individual item
+  list # Retrieves a list of items
+  sync # Enables ability to sync offline/online changes (including via DataStore)
+  listen # Subscribes to real-time changes
+  search # Enables ability to search using @searchable directive
+}
+
 type Student @model @auth(rules: [{allow: owner}]) {
   # need auth rule for queries, mutations from student users
   id: ID!
@@ -23,7 +36,7 @@ type Room @model @auth(rules: [{ allow: owner, ownerField: "owner", operations: 
   id: ID! # no access
   name: String! # read only
   teacher: Teacher! @belongsTo # no access
-  student: [Student] @hasMany # can add, not read
+  student: [Student] @hasMany # can add, get, not full read
   code: String! # read only
   owner: String # no access
 }
