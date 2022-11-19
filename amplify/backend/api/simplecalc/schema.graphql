@@ -15,7 +15,7 @@ enum ModelOperation {
   search # Enables ability to search using @searchable directive
 }
 
-type Student @model @auth(rules: [{allow: owner}]) {
+type Student @model @auth(rules: [{allow: public, provider: iam}]) {
   # need auth rule for queries, mutations from student users
   id: ID!
   name: String!
