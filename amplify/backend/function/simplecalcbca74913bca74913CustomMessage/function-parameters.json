@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "simplecalcbca74913bca74913",
+  "functionName": "simplecalcbca74913bca74913CustomMessage",
+  "resourceName": "simplecalcbca74913bca74913CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "simplecalcbca74913bca74913CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "localhost:30000",
+  "EMAILSUBJECT": "Please verify your account",
+  "EMAILMESSAGE": "Please click the following link to verify your account:",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

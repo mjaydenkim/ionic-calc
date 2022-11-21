@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import storeMethods from '../../models/Room/store'
+import Room from '../../models/Room'
+
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -19,8 +20,14 @@ export class RoomComponent implements OnInit {
   }
 
   handleSubmit(event: any) {
-    console.log("Creating a room with name: " + this.name)
     event.preventDefault() 
+    console.log("Creating a room with name: " + this.name)
+    // TODO: Backend
+    // const roomResults: any = await API.graphql(graphqlOperation(createRoom, {name: this.name}))
+    // console.log(roomResults)
+    // frontend only
+    Room.create(this.name).then((newRoom) => {
+      console.log(newRoom) // code isn't updated
+    })
   }
-
 }
