@@ -30,10 +30,10 @@ const routes: Routes = [
     path: 'room-list',
     loadChildren: () => import('./room-list/room-list.module').then( m => m.RoomListPageModule)
   },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
-  },
+  // {
+  //   path: 'auth',
+  //   loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  // },
 ];
 
 @NgModule({
