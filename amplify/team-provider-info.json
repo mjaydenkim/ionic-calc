@@ -26,6 +26,9 @@
           "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
           "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-763876514651616c707a-build.zip"
         }
+      },
+      "api": {
+        "simplecalc": {}
       }
     }
   }
