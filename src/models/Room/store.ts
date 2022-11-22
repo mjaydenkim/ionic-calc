@@ -144,7 +144,7 @@ export const fakeStore = {
     }
 }
 
-export const roomStore = new BehaviorSubject(fakeStore); // create test file, run a few basic tests (getActive/setActive are good functions to start, can use fakeStore)
+export const roomStore = new BehaviorSubject(defaultStore); // create test file, run a few basic tests (getActive/setActive are good functions to start, can use fakeStore)
 
 export default {
     getActive(): Observable<any> {

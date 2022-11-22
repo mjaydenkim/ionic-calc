@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import storeMethods from '../../models/Room/store'
 import { Subscription } from 'rxjs'
 import { Router } from '@angular/router';
+import Room from 'src/models/Room';
 
 @Component({
   selector: 'app-room-list',
@@ -18,6 +19,7 @@ export class RoomListPage implements OnInit, OnDestroy {
   ngOnInit() {
     // do what we did in the home page (getall) --> updating a local variable within the component
       // unsub once component is destroyed
+    Room.load()
     this.roomSub = storeMethods.getAll().subscribe(
       (rooms) => {
         this.rooms = rooms

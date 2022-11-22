@@ -16,10 +16,12 @@ export default {
     async load(): Promise<Rooms> {
         try {
             const result: any = await API.graphql(graphqlOperation(listRooms))
-            if (result && result.listRooms && result.listRooms.items) {
-                roomStore.setAll(result.listRooms.items)
-                return result.listRooms.items
+            if (result && result.data && result.data.listRooms && result.data.listRooms.items) {
+                roomStore.setAll(result.data.listRooms.items)
+                console.log(result.data.listRooms.items)
+                return result.data.listRooms.items
             }
+            console.log(result)
             return []
         } catch (e) {
             console.error(e)
@@ -27,13 +29,15 @@ export default {
     },
 
     async create(name: string) {
-        console.log(Auth.currentAuthenticatedUser())
+        const user = await Auth.currentAuthenticatedUser()
+        console.log(user.attributes.sub)
         try {
             const results: any = this.postNewRoom({
-                name,
+                name: name,
                 id: uuid(),
                 code: nanoid(4),
-                roomTeacherId: "lol"
+                // students: [],
+                roomTeacherId: user.attributes.sub
             })
             
             // await API.graphql(graphqlOperation(createRoom, {

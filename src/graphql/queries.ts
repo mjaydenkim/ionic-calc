@@ -160,6 +160,7 @@ export const listRooms = /* GraphQL */ `
     listRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
         teacher {
           id
           name
