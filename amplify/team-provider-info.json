@@ -23,12 +23,12 @@
           "EMAILSUBJECT": "Please verify your account",
           "EMAILMESSAGE": "Please click the following link to verify your account:",
           "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
-          "s3Key": "amplify-builds/simplecalcbca74913bca74913CustomMessage-374156394b3137656654-build.zip"
+          "s3Key": "amplify-builds/simplecalcbca74913bca74913CustomMessage-745a4c3378594861482f-build.zip"
         },
         "simplecalcbca74913bca74913PostConfirmation": {
           "GROUP": "Student",
           "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
-          "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-325a61756d5637612f78-build.zip"
+          "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-763876514651616c707a-build.zip"
         }
       }
     }
