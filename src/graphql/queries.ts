@@ -47,7 +47,6 @@ export const getTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -61,7 +60,6 @@ export const getTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
@@ -88,9 +86,41 @@ export const listTeachers = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       nextToken
+    }
+  }
+`;
+export const getStudent = /* GraphQL */ `
+  query GetStudent($id: ID!) {
+    getStudent(id: $id) {
+      id
+      name
+      email
+      status
+      room {
+        id
+        name
+        teacher {
+          id
+          name
+          email
+          createdAt
+          updatedAt
+          teacherRoomId
+        }
+        student {
+          nextToken
+        }
+        code
+        createdAt
+        updatedAt
+        roomTeacherId
+        owner
+      }
+      createdAt
+      updatedAt
+      roomStudentId
     }
   }
 `;
@@ -115,7 +145,6 @@ export const getRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -154,7 +183,6 @@ export const listRooms = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -166,40 +194,6 @@ export const listRooms = /* GraphQL */ `
         owner
       }
       nextToken
-    }
-  }
-`;
-export const getStudent = /* GraphQL */ `
-  query GetStudent($id: ID!) {
-    getStudent(id: $id) {
-      id
-      name
-      email
-      status
-      room {
-        id
-        name
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-          owner
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
-      }
-      createdAt
-      updatedAt
-      roomStudentId
     }
   }
 `;

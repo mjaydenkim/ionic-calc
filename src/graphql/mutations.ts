@@ -21,7 +21,6 @@ export const createTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -35,7 +34,6 @@ export const createTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
@@ -58,7 +56,6 @@ export const updateTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -72,7 +69,6 @@ export const updateTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
@@ -95,7 +91,6 @@ export const deleteTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -109,7 +104,6 @@ export const deleteTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
@@ -137,7 +131,6 @@ export const createRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -183,7 +176,6 @@ export const updateRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -229,7 +221,6 @@ export const deleteRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -271,7 +262,6 @@ export const createStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -308,7 +298,6 @@ export const updateStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -345,7 +334,6 @@ export const deleteStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken

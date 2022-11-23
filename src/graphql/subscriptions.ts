@@ -19,7 +19,6 @@ export const onCreateStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -53,7 +52,6 @@ export const onUpdateStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -87,7 +85,6 @@ export const onDeleteStudent = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -107,9 +104,9 @@ export const onDeleteStudent = /* GraphQL */ `
 export const onCreateTeacher = /* GraphQL */ `
   subscription OnCreateTeacher(
     $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
+    $id: String
   ) {
-    onCreateTeacher(filter: $filter, owner: $owner) {
+    onCreateTeacher(filter: $filter, id: $id) {
       id
       name
       email
@@ -123,7 +120,6 @@ export const onCreateTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -137,16 +133,15 @@ export const onCreateTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
 export const onUpdateTeacher = /* GraphQL */ `
   subscription OnUpdateTeacher(
     $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
+    $id: String
   ) {
-    onUpdateTeacher(filter: $filter, owner: $owner) {
+    onUpdateTeacher(filter: $filter, id: $id) {
       id
       name
       email
@@ -160,7 +155,6 @@ export const onUpdateTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -174,16 +168,15 @@ export const onUpdateTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
 export const onDeleteTeacher = /* GraphQL */ `
   subscription OnDeleteTeacher(
     $filter: ModelSubscriptionTeacherFilterInput
-    $owner: String
+    $id: String
   ) {
-    onDeleteTeacher(filter: $filter, owner: $owner) {
+    onDeleteTeacher(filter: $filter, id: $id) {
       id
       name
       email
@@ -197,7 +190,6 @@ export const onDeleteTeacher = /* GraphQL */ `
           createdAt
           updatedAt
           teacherRoomId
-          owner
         }
         student {
           nextToken
@@ -211,7 +203,6 @@ export const onDeleteTeacher = /* GraphQL */ `
       createdAt
       updatedAt
       teacherRoomId
-      owner
     }
   }
 `;
@@ -239,7 +230,6 @@ export const onCreateRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -285,7 +275,6 @@ export const onUpdateRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
@@ -331,7 +320,6 @@ export const onDeleteRoom = /* GraphQL */ `
         createdAt
         updatedAt
         teacherRoomId
-        owner
       }
       student {
         items {
