@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'join-room',
+    loadChildren: () => import('./join-room/join-room.module').then( m => m.JoinRoomPageModule)
   },
+
 ];
 
 @NgModule({

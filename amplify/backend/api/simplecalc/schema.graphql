@@ -40,6 +40,6 @@ type Room @model @auth(rules: [{allow: owner, operations: [create, read, update,
   name: String! @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
   teacher: Teacher @belongsTo # no access
   student: [Student] @hasMany # can add, get, not full read
-  code: String! @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
+  code: String! @index(name: "byCode") @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
   # owner: String # no access
 }
