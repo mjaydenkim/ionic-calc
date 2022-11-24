@@ -31,7 +31,7 @@ export class HomePage {
   finishJoin() {
     console.log("finished joining. code: " + this.code)
     this.roomService.setRoomCode(this.code)
-    this.router.navigate(["..", "join-room"])
+    this.router.navigate(["join-room"])
     this.isJoining = false
   }
 }
