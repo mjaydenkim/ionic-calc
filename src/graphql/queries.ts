@@ -166,6 +166,18 @@ export const getRoom = /* GraphQL */ `
     }
   }
 `;
+export const getRoomByCode = /* GraphQL */ `
+  query GetRoomByCode(
+    $code: String!
+  ) {
+    byCode(code: $code) {
+      id
+      name
+      code
+      createdAt
+      updatedAt
+    }
+}`
 export const listRooms = /* GraphQL */ `
   query ListRooms(
     $filter: ModelRoomFilterInput

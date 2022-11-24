@@ -1,4 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ export class HomePage {
   isJoining: boolean = false
   code: string = ""
 
-  constructor() {}
+  constructor(private roomService: RoomService, private router: Router) {}
 
   changeMode() {
     if (this.mode == "default") {
@@ -28,6 +30,8 @@ export class HomePage {
 
   finishJoin() {
     console.log("finished joining. code: " + this.code)
+    this.roomService.setRoomCode(this.code)
+    this.router.navigate(["..", "join-room"])
     this.isJoining = false
   }
 }

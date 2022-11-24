@@ -3,6 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'join-room',
+    loadChildren: () => import('./join-room/join-room.module').then( m => m.JoinRoomPageModule)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
@@ -10,9 +14,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
-    path: 'join-room',
-    loadChildren: () => import('./join-room/join-room.module').then( m => m.JoinRoomPageModule)
   },
 
 ];
