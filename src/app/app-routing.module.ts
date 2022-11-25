@@ -9,7 +9,8 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [HomeGuardService]
+    canActivate: [HomeGuardService],
+    pathMatch: 'full'
   },
   {
     path: '',
@@ -24,11 +25,13 @@ const routes: Routes = [
   {
     path: 'room',
     component: RoomComponent,
-    canActivate: [RoomGuardService]
+    canActivate: [RoomGuardService],
+    pathMatch: 'full'
   },
   {
     path: 'room-list',
-    loadChildren: () => import('./room-list/room-list.module').then( m => m.RoomListPageModule)
+    loadChildren: () => import('./room-list/room-list.module').then( m => m.RoomListPageModule),
+    pathMatch: 'full'
   },
   // {
   //   path: 'auth',
