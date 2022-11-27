@@ -6,7 +6,13 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
+        "userPoolGroups": {
+            "TeacherGroupRole": "string",
+            "StudentGroupRole": "string"
+        },
         "simplecalcbca74913bca74913": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
@@ -15,12 +21,6 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "simplecalcbca74913bca74913CustomMessage": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
         "simplecalcbca74913bca74913PostConfirmation": {
             "Name": "string",
             "Arn": "string",
