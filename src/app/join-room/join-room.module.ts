@@ -15,6 +15,7 @@ import { JoinRoomPage } from './join-room.page';
     IonicModule,
     JoinRoomPageRoutingModule
   ],
-  declarations: [JoinRoomPage]
+  declarations: [JoinRoomPage],
+  exports: [JoinRoomPage]
 })
 export class JoinRoomPageModule {}

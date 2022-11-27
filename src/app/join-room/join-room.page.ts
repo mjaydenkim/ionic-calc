@@ -8,10 +8,11 @@ import { RoomService } from '../services/room.service';
 })
 export class JoinRoomPage implements OnInit {
  
-  code: string
+  code: string = ""
 
   constructor(private roomService: RoomService) {
     this.code = this.roomService.getRoomCode() 
+    console.log(this.code)
   }
 
   ngOnInit() {

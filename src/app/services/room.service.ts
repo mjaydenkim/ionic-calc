@@ -30,11 +30,18 @@ export class RoomService {
   async getRoomByCode(code: string) {
     console.log(code)
     try { // when running graphql query, amplify uses cognito by default. i have to specify iam usage in the query. fix this
-      const response: any = await API.graphql(graphqlOperation(getRoomByCode, {
-        input: {
+      // const response: any = await API.graphql(graphqlOperation(getRoomByCode, {
+      //   input: {
+      //     code
+      //   }
+      // }))
+      const response: any = await API.graphql({
+        query: getRoomByCode,
+        authMode: 'AWS_IAM',
+        variables: {
           code
         }
-      }))
+    })
       console.log(response)
     } catch (e) {
       console.log(e)
