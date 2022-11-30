@@ -227,6 +227,12 @@ export type ModelRoomConnection = {
   nextToken?: string | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelSubscriptionStudentFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -879,6 +885,44 @@ export type ListRoomsQueryVariables = {
 
 export type ListRoomsQuery = {
   listRooms?:  {
+    __typename: "ModelRoomConnection",
+    items:  Array< {
+      __typename: "Room",
+      id: string,
+      name: string,
+      teacher?:  {
+        __typename: "Teacher",
+        id: string,
+        name: string,
+        email?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        teacherRoomId?: string | null,
+      } | null,
+      student?:  {
+        __typename: "ModelStudentConnection",
+        nextToken?: string | null,
+      } | null,
+      code: string,
+      createdAt: string,
+      updatedAt: string,
+      roomTeacherId?: string | null,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetRoomByCodeQueryVariables = {
+  code: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelRoomFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetRoomByCodeQuery = {
+  getRoomByCode?:  {
     __typename: "ModelRoomConnection",
     items:  Array< {
       __typename: "Room",

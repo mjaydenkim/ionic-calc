@@ -15,8 +15,6 @@ export class JoinRoomPage implements OnInit {
     console.log(this.code)
   }
 
-  ngOnInit() {
-    this.roomService.getRoomByCode(this.code)
-  }
+  ngOnInit() {}
 
 }

@@ -1,5 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { RoomService } from '../services/room.service';
 
 @Component({
@@ -31,6 +32,20 @@ export class HomePage {
   finishJoin() {
     console.log("finished joining. code: " + this.code)
     this.roomService.setRoomCode(this.code)
+
+    try {
+      this.roomService.getRoomByCode(this.code).then((response) => {console.log(response)})
+    } catch (e) {
+      console.log(e)
+    }
+
+    // const currentInfo = this.roomService
+
+    // roomSubject.next({
+    //   active: currentInfo.active,
+    //   code: this.code,
+    // })
+
     this.router.navigate(["join-room"])
     this.isJoining = false
   }
