@@ -46,7 +46,7 @@ export class HomePage {
     //   code: this.code,
     // })
 
-    this.router.navigate(["join-room"])
+    this.router.navigateByUrl("join-room")
     this.isJoining = false
   }
 }

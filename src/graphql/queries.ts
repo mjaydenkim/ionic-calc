@@ -215,14 +215,14 @@ export const getRoomByCode = /* GraphQL */ `
       items {
         id
         name
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
+        # teacher {
+        #   id
+        #   name
+        #   email
+        #   createdAt
+        #   updatedAt
+        #   teacherRoomId
+        # }
         student {
           nextToken
         }
@@ -230,7 +230,7 @@ export const getRoomByCode = /* GraphQL */ `
         createdAt
         updatedAt
         roomTeacherId
-        owner
+        # owner
       }
       nextToken
     }

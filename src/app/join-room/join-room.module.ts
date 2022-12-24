@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { JoinRoomPageRoutingModule } from './join-room-routing.module';
-
 import { JoinRoomPage } from './join-room.page';
 
 @NgModule({
@@ -13,7 +11,6 @@ import { JoinRoomPage } from './join-room.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    JoinRoomPageRoutingModule
   ],
   declarations: [JoinRoomPage],
   exports: [JoinRoomPage]

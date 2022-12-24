@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { MathjaxModule } from 'mathjax-angular';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [AppComponent],
@@ -38,7 +39,8 @@ import { MathjaxModule } from 'mathjax-angular';
             },
             // "src": "https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js"
             "src": "https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js"
-        })],
+        })
+    ],
     providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
     bootstrap: [AppComponent]
 })

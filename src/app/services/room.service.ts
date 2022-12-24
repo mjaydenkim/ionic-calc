@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import API, { graphqlOperation } from '@aws-amplify/API'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Room } from 'src/API';
 import { getRoomByCode } from 'src/graphql/queries';
 
 @Injectable({
@@ -41,18 +42,21 @@ export class RoomService {
         variables: {
           code
         }
-    })
+      })
       console.log(response)
       this.roomSubject.next({
         active: response
       })
+      return response
       // set active room based on response
     } catch (e) {
       console.log(e)
     }
   }
-  getActiveRoom() {
-    return this.roomSubject.getValue().active
+  getActiveRoom(): Observable<Room> {
+    return this.roomSubject.asObservable().pipe(
+      map(store => store.active)
+    );
   }
   // leave room
   // update student status
