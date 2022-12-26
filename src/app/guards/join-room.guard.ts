@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { e } from 'mathjs';
+import { Notify } from 'notiflix';
 import { map, Observable } from 'rxjs';
 import { RoomService } from '../services/room.service';
 
@@ -13,7 +15,15 @@ export class JoinRoomGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.roomService.getActiveRoom().pipe(map(room => room ? true : this.router.parseUrl("/home"))); // true if exists, false if not
+    return this.roomService.getActiveRoom().pipe(map(room => {
+      if(room && room.data && room.data.getRoomByCode && room.data.getRoomByCode.items && room.data.getRoomByCode.items[0] && room.data.getRoomByCode.items[0].id) {
+          return true;
+        } else {
+          Notify.failure("Invalid code");
+          return this.router.parseUrl("/home");
+        }
+      }
+      ));
   }
   
 }

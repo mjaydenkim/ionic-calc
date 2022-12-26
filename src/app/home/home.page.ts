@@ -29,15 +29,14 @@ export class HomePage {
     this.isJoining = true
   }
 
-  finishJoin() {
+  async finishJoin() {
     console.log("finished joining. code: " + this.code)
-    this.roomService.setRoomCode(this.code)
-
     try {
-      this.roomService.getRoomByCode(this.code).then((response) => {console.log(response)})
+      await this.roomService.getRoomByCode(this.code).then((response) => {console.log(response)})
     } catch (e) {
       console.log(e)
     }
+    this.roomService.setRoomCode(this.code)
 
     // const currentInfo = this.roomService
 
@@ -45,7 +44,6 @@ export class HomePage {
     //   active: currentInfo.active,
     //   code: this.code,
     // })
-
     this.router.navigateByUrl("join-room")
     this.isJoining = false
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Room } from 'src/API';
 import { RoomService } from '../services/room.service';
 
 @Component({
@@ -9,10 +10,15 @@ import { RoomService } from '../services/room.service';
 export class JoinRoomPage implements OnInit {
  
   code: string = ""
+  room: any
 
   constructor(private roomService: RoomService) {
     this.code = this.roomService.getRoomCode() 
-    console.log(this.code)
+    this.loadRoom()
+  }
+
+  async loadRoom() {
+    await this.roomService.getRoomByCode(this.code).then((room) => {this.room = room})
   }
 
   ngOnInit() {}

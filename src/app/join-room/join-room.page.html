@@ -5,5 +5,10 @@
 </ion-header>
 
 <ion-content>
-
+  <div>
+    <p>ID: {{this.room?.data.getRoomByCode.items[0].id}}</p> <!-- https://en.wikipedia.org/wiki/Elvis_operator -->
+    <p>Name: {{this.room?.data.getRoomByCode.items[0].name}}</p>
+    <!-- <p>Teacher: {{this.room?.data.getRoomByCode.items[0].teacher.name}}</p> -->
+    <p>Created At: {{this.room?.data.getRoomByCode.items[0].createdAt}}</p>
+  </div>
 </ion-content>
