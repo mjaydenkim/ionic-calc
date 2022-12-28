@@ -40,9 +40,9 @@ export class RoomService {
       })
       console.log(response)
       this.roomSubject.next({
-        active: response
+        active: response && response.data && response.data.getRoomByCode && response.data.getRoomByCode.items && response.data.getRoomByCode.items[0]
       })
-      return response
+      return response && response.data && response.data.getRoomByCode && response.data.getRoomByCode.items && response.data.getRoomByCode.items[0]
       // set active room based on response
     } catch (e) {
       console.log(e)

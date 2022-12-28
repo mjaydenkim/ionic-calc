@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { Room } from 'src/API';
 import { RoomService } from '../services/room.service';
 
@@ -10,17 +12,26 @@ import { RoomService } from '../services/room.service';
 export class JoinRoomPage implements OnInit {
  
   code: string = ""
-  room: any
+  room: Room
 
-  constructor(private roomService: RoomService) {
+  constructor(private roomService: RoomService, private router: Router) {
     this.code = this.roomService.getRoomCode() 
-    this.loadRoom()
   }
 
   async loadRoom() {
-    await this.roomService.getRoomByCode(this.code).then((room) => {this.room = room})
+    this.room = await firstValueFrom(this.roomService.getActiveRoom())
+  }
+  
+  getRoomDate() {
+    return new Date (this.room?.createdAt).toLocaleString()
   }
 
-  ngOnInit() {}
+  goBack() {
+    this.router.navigate([".."])
+  }
+
+  ngOnInit() {
+    this.loadRoom()
+  }
 
 }

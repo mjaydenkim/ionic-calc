@@ -16,7 +16,7 @@ export class JoinRoomGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.roomService.getActiveRoom().pipe(map(room => {
-      if(room && room.data && room.data.getRoomByCode && room.data.getRoomByCode.items && room.data.getRoomByCode.items[0] && room.data.getRoomByCode.items[0].id) {
+      if(room && room.id) {
           return true;
         } else {
           Notify.failure("Invalid code");

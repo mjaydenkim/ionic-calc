@@ -26,6 +26,7 @@
     "@capacitor/keyboard": "4.1.0",
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^6.1.9",
+    "@ionic/storage-angular": "^3.0.6",
     "aws-amplify": "^4.3.30",
     "dygraphs": "^2.1.0",
     "function-plot": "^1.22.8",

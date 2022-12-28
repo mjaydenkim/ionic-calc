@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>join-room</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div>
-    <p>ID: {{this.room?.data.getRoomByCode.items[0].id}}</p> <!-- https://en.wikipedia.org/wiki/Elvis_operator -->
-    <p>Name: {{this.room?.data.getRoomByCode.items[0].name}}</p>
+    <p>ID: {{this.room?.id}}</p> <!-- https://en.wikipedia.org/wiki/Elvis_operator -->
+    <p>Name: {{this.room?.name}}</p>
     <!-- <p>Teacher: {{this.room?.data.getRoomByCode.items[0].teacher.name}}</p> -->
-    <p>Created At: {{this.room?.data.getRoomByCode.items[0].createdAt}}</p>
+    <p>Created At: {{getRoomDate()}}</p>
   </div>
 </ion-content>
