@@ -8,10 +8,25 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <p>ID: {{this.room?.id}}</p> <!-- https://en.wikipedia.org/wiki/Elvis_operator -->
-    <p>Name: {{this.room?.name}}</p>
-    <!-- <p>Teacher: {{this.room?.data.getRoomByCode.items[0].teacher.name}}</p> -->
-    <p>Created At: {{getRoomDate()}}</p>
+
+  <div class="container">
+    <p>You are about to join a proctoring room with name: <b>{{this.room?.name}}</b>, which was created at <b>{{getRoomDate()}}</b>.</p>
+    <form (submit)="submit($event)" class="room-form">
+      <ion-item>
+        <ion-label>First name:</ion-label>
+        <ion-input (change)="handleInputChange($event, 'firstName')" type="text" name="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Last name:</ion-label>
+        <ion-input (change)="handleInputChange($event, 'lastName')" type="text" name="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Student email:</ion-label>
+        <ion-input (change)="handleInputChange($event, 'studentEmail')" type="text" name="studentEmail"></ion-input>
+      </ion-item>
+      <br />
+      <ion-button type="submit" shape="round">Join room</ion-button>
+    </form>
+    <p>By joining this proctoring room, I understand that my calculator activity will be shared with my teacher.</p>
   </div>
 </ion-content>

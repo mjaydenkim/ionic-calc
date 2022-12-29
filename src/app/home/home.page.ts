@@ -44,18 +44,12 @@ export class HomePage implements OnInit {
         () => {
           this.finishJoin()
         },
-        // () => {
-        //   console.log("ok lol")
-        // },
-        // {
-        // },
         );
     }
   }
 
   async finishJoin() {
     console.log("finished joining. code: " + this.code)
-    await this.storage.set('room code', this.code);
     try {
       await this.roomService.getRoomByCode(this.code).then((response) => {console.log(response)})
     } catch (e) {

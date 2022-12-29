@@ -1,0 +1,32 @@
+.container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) { // mobile portrait
+    .room-form {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) { // mobile landscape
+    .room-form {
+        padding: 1rem;
+        width: 80%;
+    }    
+}
+
+@media only screen and (min-width: 768px) and (max-width: 979px) { // tablet
+    .room-form {
+        padding: 1.5rem;
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 980px) { // desktop
+    .room-form {
+        padding: 2rem;
+        width: 40%;
+    }
+}

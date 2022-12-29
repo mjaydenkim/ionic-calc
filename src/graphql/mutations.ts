@@ -255,22 +255,22 @@ export const createStudent = /* GraphQL */ `
       room {
         id
         name
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        # teacher {
+        #   id
+        #   name
+        #   email
+        #   createdAt
+        #   updatedAt
+        #   teacherRoomId
+        # }
+        # student {
+        #   nextToken
+        # }
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        # roomTeacherId
+        # owner
       }
       createdAt
       updatedAt
@@ -291,22 +291,22 @@ export const updateStudent = /* GraphQL */ `
       room {
         id
         name
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        # teacher {
+        #   id
+        #   name
+        #   email
+        #   createdAt
+        #   updatedAt
+        #   teacherRoomId
+        # }
+        # student {
+        #   nextToken
+        # }
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        # roomTeacherId
+        # owner
       }
       createdAt
       updatedAt

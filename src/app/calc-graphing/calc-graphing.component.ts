@@ -51,7 +51,7 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   createGraph(element: Element): Chart {
 
     var data: FunctionPlotDatum = {
-      fn: process(this.expression),
+      fn: process(this.display),
     }
 
     // if (!this.expression.includes("ln(")) {
@@ -63,10 +63,10 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
       height: 200,
       xAxis: {domain: [this.domainLeft, this.domainRight]},
       // yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
-      // data: [{
-      //   fn: this.expression,
-      //   graphType: 'polyline'
-      // }],
+      data: [{
+        fn: this.display,
+        graphType: 'polyline'
+      }],
       target: '#root',
       // data: [data],
     });
