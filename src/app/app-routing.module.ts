@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { JoinRoomGuard } from './guards/join-room.guard';
 import { HomePageModule } from './home/home.module';
 import { JoinRoomPage } from './join-room/join-room.page';
 
 const routes: Routes = [
   {
     path: 'join-room',
-    loadChildren: () => import('./join-room/join-room.module').then( m => m.JoinRoomPageModule),
-    
-    pathMatch: 'full'
+    component: JoinRoomPage,    
+    canActivate: [JoinRoomGuard]
   },
   {
     path: 'home',

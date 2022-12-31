@@ -34,12 +34,12 @@ type Teacher @model @auth(rules: [{allow: owner, ownerField: "id"}]) {
   room: Room @hasOne
 }
 
-type Room @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}]) { 
+type Room @model @auth(rules: [{allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [create, read, update, delete]}]) { 
   # add another rule for iam so room can be queried by student
-  id: ID! @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # was gonna be no access, but we got an error
-  name: String! @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
+  id: ID! #@auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # was gonna be no access, but we got an error
+  name: String! #@auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
   teacher: Teacher @belongsTo # no access
   student: [Student] @hasMany # can add, get, not full read
-  code: String! @index(name: "byCode") @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
+  code: String! @index(name: "byCode", queryField: "getRoomByCode") #@auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: public, provider: iam, operations: [read]}, {allow: private, provider: iam, operations: [read]}]) # read only
   # owner: String # no access
 }

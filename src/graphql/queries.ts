@@ -166,18 +166,6 @@ export const getRoom = /* GraphQL */ `
     }
   }
 `;
-export const getRoomByCode = /* GraphQL */ `
-  query GetRoomByCode(
-    $code: String!
-  ) {
-    byCode(code: $code) {
-      id
-      name
-      code
-      createdAt
-      updatedAt
-    }
-}`
 export const listRooms = /* GraphQL */ `
   query ListRooms(
     $filter: ModelRoomFilterInput
@@ -204,6 +192,45 @@ export const listRooms = /* GraphQL */ `
         updatedAt
         roomTeacherId
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getRoomByCode = /* GraphQL */ `
+  query GetRoomByCode(
+    $code: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRoomFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getRoomByCode(
+      code: $code
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        # teacher {
+        #   id
+        #   name
+        #   email
+        #   createdAt
+        #   updatedAt
+        #   teacherRoomId
+        # }
+        student {
+          nextToken
+        }
+        code
+        createdAt
+        updatedAt
+        roomTeacherId
+        # owner
       }
       nextToken
     }
