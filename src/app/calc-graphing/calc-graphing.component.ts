@@ -33,7 +33,7 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   @ViewChild("div1", { static: true }) div1;
 
   expression = "x";
-  display = "$x$";
+  display = "x";
 
   constructor(public buttonService: CalcButtonService) {
     this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
@@ -51,20 +51,24 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   createGraph(element: Element): Chart {
 
     var data: FunctionPlotDatum = {
-      fn: process(this.expression),
+      fn: process(this.display),
     }
 
-    if (!this.expression.includes("ln(")) {
-      data.graphType = 'polyline'
-    } // ln untraceable ????
+    // if (!this.expression.includes("ln(")) {
+    //   data.graphType = 'polyline'
+    // } // ln untraceable ????
 
     return functionPlot({
       width: 300,
       height: 200,
       xAxis: {domain: [this.domainLeft, this.domainRight]},
-      yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
+      // yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
+      data: [{
+        fn: this.display,
+        graphType: 'polyline'
+      }],
       target: '#root',
-      data: [data],
+      // data: [data],
     });
   }
 
@@ -108,7 +112,8 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
     else {
       this.expression += event // TODO: handle rounding for large numbers
     }
-    this.display = "$" + this.expression + "$"
+    this.display = this.expression
+    console.log(this.display)
   }
 
   handleRight() {

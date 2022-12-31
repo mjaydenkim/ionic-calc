@@ -1,6 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
+    "identityPoolName": "simplecalc8124eea1_identitypool_8124eea1",
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "simplebca74913",
     "userPoolName": "simplecalcbca74913_userpool_bca74913",
     "autoVerifiedAttributes": [
@@ -54,10 +56,10 @@
       "phone_number_verified"
     ],
     "userpoolClientLambdaRole": "simplebca74913_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
+    "userpoolClientSetAttributes": false,
     "sharedId": "bca74913",
     "resourceName": "simplecalcbca74913bca74913",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
@@ -65,9 +67,6 @@
     "userPoolGroups": true,
     "adminQueries": false,
     "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ],
       "PostConfirmation": [
         "add-to-group"
       ]
@@ -80,6 +79,39 @@
     "serviceName": "Cognito",
     "verificationBucketName": "simplecalcbca74913bca74913verificationbucket",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "simplecalcbca74913bca74913PostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "permissions": [
+      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
+    ],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"simplecalcbca74913bca74913PostConfirmation\"\n  }\n]",
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    }
   }
-} 
+}

@@ -18,7 +18,7 @@ export const keyLookups = {
   nCr: "nCr(",
   "√": "sqrt(",
   "x^2": "^2",
-  "e^x": "e^",
+  "e^x": "ｅ^",
   "1/x": "1/",
   "10^x": "10^",
   e: "ｅ", // mathjax is thrown off by this

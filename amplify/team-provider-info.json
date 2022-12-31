@@ -24,8 +24,12 @@
         },
         "simplecalcbca74913bca74913PostConfirmation": {
           "deploymentBucketName": "amplify-simplecalc-dev-161002-deployment",
-          "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-763876514651616c707a-build.zip"
+          "s3Key": "amplify-builds/simplecalcbca74913bca74913PostConfirmation-763876514651616c707a-build.zip",
+          "GROUP": "Teacher"
         }
+      },
+      "api": {
+        "simplecalc": {}
       }
     }
   }
