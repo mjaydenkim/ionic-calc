@@ -167,15 +167,23 @@ export const listRooms = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
+          # teacherRoomId
         }
         student {
-          nextToken
+          items {
+            id
+            name
+            email
+            history
+            status
+            createdAt
+            updatedAt
+          }
         }
         code
         createdAt
         updatedAt
-        roomTeacherId
+        # roomTeacherId
       }
       nextToken
     }
