@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import roomStore from '../../models/Room/store'
+import Room from '../../models/Room'
 
 @Component({
   selector: 'app-room-detail',
@@ -15,6 +16,7 @@ export class RoomDetailPage implements OnInit, OnDestroy {
   room: any = {}
   students: any[] = []
   roomSubscription: Subscription
+  newStudentSubscription: Subscription
 
   constructor(private route: ActivatedRoute) {}
 
@@ -27,10 +29,13 @@ export class RoomDetailPage implements OnInit, OnDestroy {
       console.log(this.room)
       this.students = room.student.items
     })
+
+    this.newStudentSubscription = Room.initRoomSubscription(this.id)
   }
 
   ngOnDestroy() {
     this.roomSubscription.unsubscribe()
+    Room.unsubscribeRoom()
   }
 
 }
