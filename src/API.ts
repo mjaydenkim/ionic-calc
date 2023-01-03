@@ -6,7 +6,6 @@ export type CreateTeacherInput = {
   id?: string | null,
   name: string,
   email?: string | null,
-  teacherRoomId?: string | null,
 };
 
 export type ModelTeacherConditionInput = {
@@ -15,7 +14,6 @@ export type ModelTeacherConditionInput = {
   and?: Array< ModelTeacherConditionInput | null > | null,
   or?: Array< ModelTeacherConditionInput | null > | null,
   not?: ModelTeacherConditionInput | null,
-  teacherRoomId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -58,6 +56,79 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type Teacher = {
+  __typename: "Teacher",
+  id: string,
+  name: string,
+  email?: string | null,
+  room?: ModelRoomConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelRoomConnection = {
+  __typename: "ModelRoomConnection",
+  items:  Array<Room | null >,
+  nextToken?: string | null,
+};
+
+export type Room = {
+  __typename: "Room",
+  id: string,
+  name: string,
+  teacher?: Teacher | null,
+  student?: ModelStudentConnection | null,
+  code: string,
+  createdAt: string,
+  updatedAt: string,
+  teacherRoomId?: string | null,
+};
+
+export type ModelStudentConnection = {
+  __typename: "ModelStudentConnection",
+  items:  Array<Student | null >,
+  nextToken?: string | null,
+};
+
+export type Student = {
+  __typename: "Student",
+  id: string,
+  name: string,
+  email: string,
+  status: string,
+  history?: Array< string | null > | null,
+  room: Room,
+  createdAt: string,
+  updatedAt: string,
+  roomStudentId?: string | null,
+};
+
+export type UpdateTeacherInput = {
+  id: string,
+  name?: string | null,
+  email?: string | null,
+};
+
+export type DeleteTeacherInput = {
+  id: string,
+};
+
+export type CreateRoomInput = {
+  id?: string | null,
+  name: string,
+  code: string,
+  teacherRoomId?: string | null,
+};
+
+export type ModelRoomConditionInput = {
+  name?: ModelStringInput | null,
+  code?: ModelStringInput | null,
+  and?: Array< ModelRoomConditionInput | null > | null,
+  or?: Array< ModelRoomConditionInput | null > | null,
+  not?: ModelRoomConditionInput | null,
+  teacherRoomId?: ModelIDInput | null,
+};
+
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -74,82 +145,6 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type Teacher = {
-  __typename: "Teacher",
-  id: string,
-  name: string,
-  email?: string | null,
-  room?: Room | null,
-  createdAt: string,
-  updatedAt: string,
-  teacherRoomId?: string | null,
-};
-
-export type Room = {
-  __typename: "Room",
-  id: string,
-  name: string,
-  teacher?: Teacher | null,
-  student?: ModelStudentConnection | null,
-  code: string,
-  createdAt: string,
-  updatedAt: string,
-  roomTeacherId?: string | null,
-  owner?: string | null,
-};
-
-export type ModelStudentConnection = {
-  __typename: "ModelStudentConnection",
-  items:  Array<Student | null >,
-  nextToken?: string | null,
-};
-
-export type Student = {
-  __typename: "Student",
-  id: string,
-  name: string,
-  email: string,
-  status: string,
-  room?: Room | null,
-  createdAt: string,
-  updatedAt: string,
-  roomStudentId?: string | null,
-};
-
-export type UpdateTeacherInput = {
-  id: string,
-  name?: string | null,
-  email?: string | null,
-  teacherRoomId?: string | null,
-};
-
-export type DeleteTeacherInput = {
-  id: string,
-};
-
-export type CreateRoomInput = {
-  id?: string | null,
-  name: string,
-  code: string,
-  roomTeacherId?: string | null,
-};
-
-export type ModelRoomConditionInput = {
-  name?: ModelStringInput | null,
-  code?: ModelStringInput | null,
-  and?: Array< ModelRoomConditionInput | null > | null,
-  or?: Array< ModelRoomConditionInput | null > | null,
-  not?: ModelRoomConditionInput | null,
-  roomTeacherId?: ModelIDInput | null,
-};
-
-export type UpdateRoomInput = {
-  id: string,
-  name?: string | null,
-  code?: string | null,
-  roomTeacherId?: string | null,
-};
-
 export type DeleteRoomInput = {
   id: string,
 };
@@ -159,6 +154,7 @@ export type CreateStudentInput = {
   name: string,
   email: string,
   status: string,
+  history?: Array< string | null > | null,
   roomStudentId?: string | null,
 };
 
@@ -166,6 +162,7 @@ export type ModelStudentConditionInput = {
   name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   status?: ModelStringInput | null,
+  history?: ModelStringInput | null,
   and?: Array< ModelStudentConditionInput | null > | null,
   or?: Array< ModelStudentConditionInput | null > | null,
   not?: ModelStudentConditionInput | null,
@@ -177,6 +174,7 @@ export type UpdateStudentInput = {
   name?: string | null,
   email?: string | null,
   status?: string | null,
+  history?: Array< string | null > | null,
   roomStudentId?: string | null,
 };
 
@@ -184,11 +182,19 @@ export type DeleteStudentInput = {
   id: string,
 };
 
+export type UpdateRoomInput = {
+  id: string,
+  name?: string | null,
+  code?: string | null,
+  teacherRoomId?: string | null,
+};
+
 export type ModelStudentFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   status?: ModelStringInput | null,
+  history?: ModelStringInput | null,
   and?: Array< ModelStudentFilterInput | null > | null,
   or?: Array< ModelStudentFilterInput | null > | null,
   not?: ModelStudentFilterInput | null,
@@ -202,7 +208,6 @@ export type ModelTeacherFilterInput = {
   and?: Array< ModelTeacherFilterInput | null > | null,
   or?: Array< ModelTeacherFilterInput | null > | null,
   not?: ModelTeacherFilterInput | null,
-  teacherRoomId?: ModelIDInput | null,
 };
 
 export type ModelTeacherConnection = {
@@ -218,13 +223,7 @@ export type ModelRoomFilterInput = {
   and?: Array< ModelRoomFilterInput | null > | null,
   or?: Array< ModelRoomFilterInput | null > | null,
   not?: ModelRoomFilterInput | null,
-  roomTeacherId?: ModelIDInput | null,
-};
-
-export type ModelRoomConnection = {
-  __typename: "ModelRoomConnection",
-  items:  Array<Room | null >,
-  nextToken?: string | null,
+  teacherRoomId?: ModelIDInput | null,
 };
 
 export enum ModelSortDirection {
@@ -238,6 +237,7 @@ export type ModelSubscriptionStudentFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  history?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionStudentFilterInput | null > | null,
   or?: Array< ModelSubscriptionStudentFilterInput | null > | null,
 };
@@ -299,31 +299,20 @@ export type CreateTeacherMutation = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -339,31 +328,20 @@ export type UpdateTeacherMutation = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -379,31 +357,20 @@ export type DeleteTeacherMutation = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -423,18 +390,11 @@ export type CreateRoomMutation = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -444,6 +404,7 @@ export type CreateRoomMutation = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -453,59 +414,7 @@ export type CreateRoomMutation = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
-  } | null,
-};
-
-export type UpdateRoomMutationVariables = {
-  input: UpdateRoomInput,
-  condition?: ModelRoomConditionInput | null,
-};
-
-export type UpdateRoomMutation = {
-  updateRoom?:  {
-    __typename: "Room",
-    id: string,
-    name: string,
-    teacher?:  {
-      __typename: "Teacher",
-      id: string,
-      name: string,
-      email?: string | null,
-      room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      teacherRoomId?: string | null,
-    } | null,
-    student?:  {
-      __typename: "ModelStudentConnection",
-      items:  Array< {
-        __typename: "Student",
-        id: string,
-        name: string,
-        email: string,
-        status: string,
-        createdAt: string,
-        updatedAt: string,
-        roomStudentId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    code: string,
-    createdAt: string,
-    updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -525,18 +434,11 @@ export type DeleteRoomMutation = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -546,6 +448,7 @@ export type DeleteRoomMutation = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -555,8 +458,7 @@ export type DeleteRoomMutation = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -572,7 +474,8 @@ export type CreateStudentMutation = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -583,7 +486,6 @@ export type CreateStudentMutation = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -592,9 +494,8 @@ export type CreateStudentMutation = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -613,7 +514,8 @@ export type UpdateStudentMutation = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -624,7 +526,6 @@ export type UpdateStudentMutation = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -633,9 +534,8 @@ export type UpdateStudentMutation = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -654,7 +554,8 @@ export type DeleteStudentMutation = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -665,7 +566,6 @@ export type DeleteStudentMutation = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -674,12 +574,55 @@ export type DeleteStudentMutation = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
+  } | null,
+};
+
+export type UpdateRoomMutationVariables = {
+  input: UpdateRoomInput,
+  condition?: ModelRoomConditionInput | null,
+};
+
+export type UpdateRoomMutation = {
+  updateRoom?:  {
+    __typename: "Room",
+    id: string,
+    name: string,
+    teacher?:  {
+      __typename: "Teacher",
+      id: string,
+      name: string,
+      email?: string | null,
+      room?:  {
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    student?:  {
+      __typename: "ModelStudentConnection",
+      items:  Array< {
+        __typename: "Student",
+        id: string,
+        name: string,
+        email: string,
+        status: string,
+        history?: Array< string | null > | null,
+        createdAt: string,
+        updatedAt: string,
+        roomStudentId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    code: string,
+    createdAt: string,
+    updatedAt: string,
+    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -698,16 +641,16 @@ export type ListStudentsQuery = {
       name: string,
       email: string,
       status: string,
-      room?:  {
+      history?: Array< string | null > | null,
+      room:  {
         __typename: "Room",
         id: string,
         name: string,
         code: string,
         createdAt: string,
         updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
-      } | null,
+        teacherRoomId?: string | null,
+      },
       createdAt: string,
       updatedAt: string,
       roomStudentId?: string | null,
@@ -727,31 +670,20 @@ export type GetTeacherQuery = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -770,18 +702,11 @@ export type ListTeachersQuery = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -798,7 +723,8 @@ export type GetStudentQuery = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -809,7 +735,6 @@ export type GetStudentQuery = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -818,9 +743,8 @@ export type GetStudentQuery = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -842,18 +766,11 @@ export type GetRoomQuery = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -863,6 +780,7 @@ export type GetRoomQuery = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -872,8 +790,7 @@ export type GetRoomQuery = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -897,7 +814,6 @@ export type ListRoomsQuery = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -906,8 +822,7 @@ export type ListRoomsQuery = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      teacherRoomId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -935,7 +850,6 @@ export type GetRoomByCodeQuery = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -944,8 +858,7 @@ export type GetRoomByCodeQuery = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      teacherRoomId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -962,7 +875,8 @@ export type OnCreateStudentSubscription = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -973,7 +887,6 @@ export type OnCreateStudentSubscription = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -982,9 +895,8 @@ export type OnCreateStudentSubscription = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -1002,7 +914,8 @@ export type OnUpdateStudentSubscription = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -1013,7 +926,6 @@ export type OnUpdateStudentSubscription = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -1022,9 +934,8 @@ export type OnUpdateStudentSubscription = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -1042,7 +953,8 @@ export type OnDeleteStudentSubscription = {
     name: string,
     email: string,
     status: string,
-    room?:  {
+    history?: Array< string | null > | null,
+    room:  {
       __typename: "Room",
       id: string,
       name: string,
@@ -1053,7 +965,6 @@ export type OnDeleteStudentSubscription = {
         email?: string | null,
         createdAt: string,
         updatedAt: string,
-        teacherRoomId?: string | null,
       } | null,
       student?:  {
         __typename: "ModelStudentConnection",
@@ -1062,9 +973,8 @@ export type OnDeleteStudentSubscription = {
       code: string,
       createdAt: string,
       updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
-    } | null,
+      teacherRoomId?: string | null,
+    },
     createdAt: string,
     updatedAt: string,
     roomStudentId?: string | null,
@@ -1083,31 +993,20 @@ export type OnCreateTeacherSubscription = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -1123,31 +1022,20 @@ export type OnUpdateTeacherSubscription = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
@@ -1163,37 +1051,25 @@ export type OnDeleteTeacherSubscription = {
     name: string,
     email?: string | null,
     room?:  {
-      __typename: "Room",
-      id: string,
-      name: string,
-      teacher?:  {
-        __typename: "Teacher",
+      __typename: "ModelRoomConnection",
+      items:  Array< {
+        __typename: "Room",
         id: string,
         name: string,
-        email?: string | null,
+        code: string,
         createdAt: string,
         updatedAt: string,
         teacherRoomId?: string | null,
-      } | null,
-      student?:  {
-        __typename: "ModelStudentConnection",
-        nextToken?: string | null,
-      } | null,
-      code: string,
-      createdAt: string,
-      updatedAt: string,
-      roomTeacherId?: string | null,
-      owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    teacherRoomId?: string | null,
   } | null,
 };
 
 export type OnCreateRoomSubscriptionVariables = {
   filter?: ModelSubscriptionRoomFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateRoomSubscription = {
@@ -1207,18 +1083,11 @@ export type OnCreateRoomSubscription = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -1228,6 +1097,7 @@ export type OnCreateRoomSubscription = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -1237,14 +1107,12 @@ export type OnCreateRoomSubscription = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
 
 export type OnUpdateRoomSubscriptionVariables = {
   filter?: ModelSubscriptionRoomFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateRoomSubscription = {
@@ -1258,18 +1126,11 @@ export type OnUpdateRoomSubscription = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -1279,6 +1140,7 @@ export type OnUpdateRoomSubscription = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -1288,14 +1150,12 @@ export type OnUpdateRoomSubscription = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
 
 export type OnDeleteRoomSubscriptionVariables = {
   filter?: ModelSubscriptionRoomFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteRoomSubscription = {
@@ -1309,18 +1169,11 @@ export type OnDeleteRoomSubscription = {
       name: string,
       email?: string | null,
       room?:  {
-        __typename: "Room",
-        id: string,
-        name: string,
-        code: string,
-        createdAt: string,
-        updatedAt: string,
-        roomTeacherId?: string | null,
-        owner?: string | null,
+        __typename: "ModelRoomConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      teacherRoomId?: string | null,
     } | null,
     student?:  {
       __typename: "ModelStudentConnection",
@@ -1330,6 +1183,7 @@ export type OnDeleteRoomSubscription = {
         name: string,
         email: string,
         status: string,
+        history?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         roomStudentId?: string | null,
@@ -1339,7 +1193,6 @@ export type OnDeleteRoomSubscription = {
     code: string,
     createdAt: string,
     updatedAt: string,
-    roomTeacherId?: string | null,
-    owner?: string | null,
+    teacherRoomId?: string | null,
   } | null,
 };
