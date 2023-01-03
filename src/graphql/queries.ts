@@ -14,14 +14,14 @@ export const listStudents = /* GraphQL */ `
         name
         email
         status
+        history
         room {
           id
           name
           code
           createdAt
           updatedAt
-          roomTeacherId
-          owner
+          teacherRoomId
         }
         createdAt
         updatedAt
@@ -38,28 +38,18 @@ export const getTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -75,17 +65,10 @@ export const listTeachers = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       nextToken
     }
@@ -98,6 +81,7 @@ export const getStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -107,7 +91,6 @@ export const getStudent = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -115,8 +98,7 @@ export const getStudent = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -134,17 +116,10 @@ export const getRoom = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
         items {
@@ -152,6 +127,7 @@ export const getRoom = /* GraphQL */ `
           name
           email
           status
+          history
           createdAt
           updatedAt
           roomStudentId
@@ -161,8 +137,7 @@ export const getRoom = /* GraphQL */ `
       code
       createdAt
       updatedAt
-      roomTeacherId
-      owner
+      teacherRoomId
     }
   }
 `;
@@ -182,7 +157,6 @@ export const listRooms = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -190,8 +164,7 @@ export const listRooms = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       nextToken
     }
@@ -221,16 +194,14 @@ export const getRoomByCode = /* GraphQL */ `
         #   email
         #   createdAt
         #   updatedAt
-        #   teacherRoomId
         # }
-        student {
-          nextToken
-        }
+        # student {
+        #   nextToken
+        # }
         code
         createdAt
         updatedAt
-        roomTeacherId
-        # owner
+        # teacherRoomId
       }
       nextToken
     }

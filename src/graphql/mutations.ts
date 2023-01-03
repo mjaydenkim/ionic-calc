@@ -12,28 +12,18 @@ export const createTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -47,28 +37,18 @@ export const updateTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -82,28 +62,18 @@ export const deleteTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -120,17 +90,10 @@ export const createRoom = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
         items {
@@ -138,6 +101,7 @@ export const createRoom = /* GraphQL */ `
           name
           email
           status
+          history
           createdAt
           updatedAt
           roomStudentId
@@ -147,53 +111,7 @@ export const createRoom = /* GraphQL */ `
       code
       createdAt
       updatedAt
-      roomTeacherId
-      owner
-    }
-  }
-`;
-export const updateRoom = /* GraphQL */ `
-  mutation UpdateRoom(
-    $input: UpdateRoomInput!
-    $condition: ModelRoomConditionInput
-  ) {
-    updateRoom(input: $input, condition: $condition) {
-      id
-      name
-      teacher {
-        id
-        name
-        email
-        room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
-        }
-        createdAt
-        updatedAt
-        teacherRoomId
-      }
-      student {
-        items {
-          id
-          name
-          email
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
-        nextToken
-      }
-      code
-      createdAt
-      updatedAt
-      roomTeacherId
-      owner
+      teacherRoomId
     }
   }
 `;
@@ -210,17 +128,10 @@ export const deleteRoom = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
         items {
@@ -228,6 +139,7 @@ export const deleteRoom = /* GraphQL */ `
           name
           email
           status
+          history
           createdAt
           updatedAt
           roomStudentId
@@ -237,8 +149,7 @@ export const deleteRoom = /* GraphQL */ `
       code
       createdAt
       updatedAt
-      roomTeacherId
-      owner
+      teacherRoomId
     }
   }
 `;
@@ -252,6 +163,7 @@ export const createStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -261,16 +173,14 @@ export const createStudent = /* GraphQL */ `
         #   email
         #   createdAt
         #   updatedAt
-        #   teacherRoomId
         # }
-        # student {
-        #   nextToken
-        # }
+        student {
+          nextToken
+        }
         code
         createdAt
         updatedAt
-        # roomTeacherId
-        # owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -288,25 +198,24 @@ export const updateStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
-        # teacher {
-        #   id
-        #   name
-        #   email
-        #   createdAt
-        #   updatedAt
-        #   teacherRoomId
-        # }
-        # student {
-        #   nextToken
-        # }
+        teacher {
+          id
+          name
+          email
+          createdAt
+          updatedAt
+        }
+        student {
+          nextToken
+        }
         code
         createdAt
         updatedAt
-        # roomTeacherId
-        # owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -324,6 +233,7 @@ export const deleteStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -333,7 +243,6 @@ export const deleteStudent = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -341,12 +250,49 @@ export const deleteStudent = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       createdAt
       updatedAt
       roomStudentId
+    }
+  }
+`;
+export const updateRoom = /* GraphQL */ `
+  mutation UpdateRoom(
+    $input: UpdateRoomInput!
+    $condition: ModelRoomConditionInput
+  ) {
+    updateRoom(input: $input, condition: $condition) {
+      id
+      name
+      teacher {
+        id
+        name
+        email
+        room {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      student {
+        items {
+          id
+          name
+          email
+          status
+          history
+          createdAt
+          updatedAt
+          roomStudentId
+        }
+        nextToken
+      }
+      code
+      createdAt
+      updatedAt
+      teacherRoomId
     }
   }
 `;
