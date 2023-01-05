@@ -1,86 +1,86 @@
 {
   "api": {
     "simplecalc": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "simplecalcbca74913bca74913",
           "attributes": [
             "UserPoolId"
-          ]
+          ],
+          "category": "auth",
+          "resourceName": "simplecalcbca74913bca74913"
         }
       ],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
               "userPoolId": "authsimplecalcbca74913bca74913"
             }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ]
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   },
   "auth": {
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
+    "simplecalcbca74913bca74913": {
+      "customAuth": false,
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "simplecalcbca74913bca74913",
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913PostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OPTIONAL",
+        "mfaTypes": [
+          "TOTP"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
             "AppClientID",
             "IdentityPoolId"
-          ]
-        }
-      ]
-    },
-    "simplecalcbca74913bca74913": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "simplecalcbca74913bca74913PostConfirmation",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          ],
+          "category": "auth",
+          "resourceName": "simplecalcbca74913bca74913"
         }
       ],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OPTIONAL",
-        "mfaTypes": [
-          "TOTP"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "function": {
@@ -93,6 +93,72 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_simplecalcbca74913bca74913CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913CustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913CustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913PostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913PostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_simplecalcbca74913bca74913PostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "simplecalcbca74913bca74913PostConfirmation"
+        }
+      ]
     }
   }
 }
