@@ -69,7 +69,7 @@ export default {
         console.log("initializing subscription to room: " + roomId)
         const roomObservable: any = API.graphql(graphqlOperation(onCreateStudent, {
             filter: {
-                roomStudentId: { eq: roomId }
+                roomTeacherId: { eq: roomId }
             }
         }))
         if (!roomChanges) {
