@@ -7,24 +7,16 @@ export const onCreateStudent = /* GraphQL */ `
     onCreateStudent(filter: $filter) {
       id
       name
+      email
       status
+      history
       room {
         id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        name
         code
         createdAt
         updatedAt
-        roomTeacherId
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -37,24 +29,16 @@ export const onUpdateStudent = /* GraphQL */ `
     onUpdateStudent(filter: $filter) {
       id
       name
+      email
       status
+      history
       room {
         id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        name
         code
         createdAt
         updatedAt
-        roomTeacherId
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -67,24 +51,16 @@ export const onDeleteStudent = /* GraphQL */ `
     onDeleteStudent(filter: $filter) {
       id
       name
+      email
       status
+      history
       room {
         id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        name
         code
         createdAt
         updatedAt
-        roomTeacherId
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -93,92 +69,53 @@ export const onDeleteStudent = /* GraphQL */ `
   }
 `;
 export const onCreateTeacher = /* GraphQL */ `
-  subscription OnCreateTeacher($filter: ModelSubscriptionTeacherFilterInput) {
-    onCreateTeacher(filter: $filter) {
+  subscription OnCreateTeacher(
+    $filter: ModelSubscriptionTeacherFilterInput
+    $id: String
+  ) {
+    onCreateTeacher(filter: $filter, id: $id) {
       id
       name
       email
       room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
 export const onUpdateTeacher = /* GraphQL */ `
-  subscription OnUpdateTeacher($filter: ModelSubscriptionTeacherFilterInput) {
-    onUpdateTeacher(filter: $filter) {
+  subscription OnUpdateTeacher(
+    $filter: ModelSubscriptionTeacherFilterInput
+    $id: String
+  ) {
+    onUpdateTeacher(filter: $filter, id: $id) {
       id
       name
       email
       room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
 export const onDeleteTeacher = /* GraphQL */ `
-  subscription OnDeleteTeacher($filter: ModelSubscriptionTeacherFilterInput) {
-    onDeleteTeacher(filter: $filter) {
+  subscription OnDeleteTeacher(
+    $filter: ModelSubscriptionTeacherFilterInput
+    $id: String
+  ) {
+    onDeleteTeacher(filter: $filter, id: $id) {
       id
       name
       email
       room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -186,36 +123,21 @@ export const onCreateRoom = /* GraphQL */ `
   subscription OnCreateRoom($filter: ModelSubscriptionRoomFilterInput) {
     onCreateRoom(filter: $filter) {
       id
+      name
       teacher {
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
         nextToken
       }
       code
       createdAt
       updatedAt
-      roomTeacherId
+      teacherRoomId
     }
   }
 `;
@@ -223,36 +145,21 @@ export const onUpdateRoom = /* GraphQL */ `
   subscription OnUpdateRoom($filter: ModelSubscriptionRoomFilterInput) {
     onUpdateRoom(filter: $filter) {
       id
+      name
       teacher {
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
         nextToken
       }
       code
       createdAt
       updatedAt
-      roomTeacherId
+      teacherRoomId
     }
   }
 `;
@@ -260,36 +167,21 @@ export const onDeleteRoom = /* GraphQL */ `
   subscription OnDeleteRoom($filter: ModelSubscriptionRoomFilterInput) {
     onDeleteRoom(filter: $filter) {
       id
+      name
       teacher {
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
         nextToken
       }
       code
       createdAt
       updatedAt
-      roomTeacherId
+      teacherRoomId
     }
   }
 `;

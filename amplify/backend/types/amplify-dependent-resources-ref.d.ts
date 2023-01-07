@@ -24,6 +24,7 @@ export type AmplifyDependentResourcesAttributes = {
     "simplecalcbca74913bca74913PostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     }

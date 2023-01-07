@@ -2,6 +2,107 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createTeacher = /* GraphQL */ `
+  mutation CreateTeacher(
+    $input: CreateTeacherInput!
+    $condition: ModelTeacherConditionInput
+  ) {
+    createTeacher(input: $input, condition: $condition) {
+      id
+      name
+      email
+      room {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTeacher = /* GraphQL */ `
+  mutation UpdateTeacher(
+    $input: UpdateTeacherInput!
+    $condition: ModelTeacherConditionInput
+  ) {
+    updateTeacher(input: $input, condition: $condition) {
+      id
+      name
+      email
+      room {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTeacher = /* GraphQL */ `
+  mutation DeleteTeacher(
+    $input: DeleteTeacherInput!
+    $condition: ModelTeacherConditionInput
+  ) {
+    deleteTeacher(input: $input, condition: $condition) {
+      id
+      name
+      email
+      room {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createRoom = /* GraphQL */ `
+  mutation CreateRoom(
+    $input: CreateRoomInput!
+    $condition: ModelRoomConditionInput
+  ) {
+    createRoom(input: $input, condition: $condition) {
+      id
+      name
+      teacher {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      student {
+        nextToken
+      }
+      code
+      createdAt
+      updatedAt
+      teacherRoomId
+    }
+  }
+`;
+export const deleteRoom = /* GraphQL */ `
+  mutation DeleteRoom(
+    $input: DeleteRoomInput!
+    $condition: ModelRoomConditionInput
+  ) {
+    deleteRoom(input: $input, condition: $condition) {
+      id
+      name
+      teacher {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      student {
+        nextToken
+      }
+      code
+      createdAt
+      updatedAt
+      teacherRoomId
+    }
+  }
+`;
 export const createStudent = /* GraphQL */ `
   mutation CreateStudent(
     $input: CreateStudentInput!
@@ -10,24 +111,16 @@ export const createStudent = /* GraphQL */ `
     createStudent(input: $input, condition: $condition) {
       id
       name
+      email
       status
+      history
       room {
         id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        name
         code
         createdAt
         updatedAt
-        roomTeacherId
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -43,24 +136,16 @@ export const updateStudent = /* GraphQL */ `
     updateStudent(input: $input, condition: $condition) {
       id
       name
+      email
       status
+      history
       room {
         id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
+        name
         code
         createdAt
         updatedAt
-        roomTeacherId
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -76,167 +161,20 @@ export const deleteStudent = /* GraphQL */ `
     deleteStudent(input: $input, condition: $condition) {
       id
       name
+      email
       status
+      history
       room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-      }
-      createdAt
-      updatedAt
-      roomStudentId
-    }
-  }
-`;
-export const createTeacher = /* GraphQL */ `
-  mutation CreateTeacher(
-    $input: CreateTeacherInput!
-    $condition: ModelTeacherConditionInput
-  ) {
-    createTeacher(input: $input, condition: $condition) {
-      id
-      name
-      email
-      room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-      }
-      createdAt
-      updatedAt
-      teacherRoomId
-    }
-  }
-`;
-export const updateTeacher = /* GraphQL */ `
-  mutation UpdateTeacher(
-    $input: UpdateTeacherInput!
-    $condition: ModelTeacherConditionInput
-  ) {
-    updateTeacher(input: $input, condition: $condition) {
-      id
-      name
-      email
-      room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-      }
-      createdAt
-      updatedAt
-      teacherRoomId
-    }
-  }
-`;
-export const deleteTeacher = /* GraphQL */ `
-  mutation DeleteTeacher(
-    $input: DeleteTeacherInput!
-    $condition: ModelTeacherConditionInput
-  ) {
-    deleteTeacher(input: $input, condition: $condition) {
-      id
-      name
-      email
-      room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-      }
-      createdAt
-      updatedAt
-      teacherRoomId
-    }
-  }
-`;
-export const createRoom = /* GraphQL */ `
-  mutation CreateRoom(
-    $input: CreateRoomInput!
-    $condition: ModelRoomConditionInput
-  ) {
-    createRoom(input: $input, condition: $condition) {
-      id
-      teacher {
         id
         name
-        email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
+        code
         createdAt
         updatedAt
         teacherRoomId
       }
-      student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
-        nextToken
-      }
-      code
       createdAt
       updatedAt
-      roomTeacherId
+      roomStudentId
     }
   }
 `;
@@ -247,76 +185,21 @@ export const updateRoom = /* GraphQL */ `
   ) {
     updateRoom(input: $input, condition: $condition) {
       id
+      name
       teacher {
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
         nextToken
       }
       code
       createdAt
       updatedAt
-      roomTeacherId
-    }
-  }
-`;
-export const deleteRoom = /* GraphQL */ `
-  mutation DeleteRoom(
-    $input: DeleteRoomInput!
-    $condition: ModelRoomConditionInput
-  ) {
-    deleteRoom(input: $input, condition: $condition) {
-      id
-      teacher {
-        id
-        name
-        email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
-        createdAt
-        updatedAt
-        teacherRoomId
-      }
-      student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
-        nextToken
-      }
-      code
-      createdAt
-      updatedAt
-      roomTeacherId
+      teacherRoomId
     }
   }
 `;

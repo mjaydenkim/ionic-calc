@@ -2,7 +2,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify'
 import { nanoid } from 'nanoid'
 import { createRoom } from 'src/graphql/mutations'
 import { listRooms } from 'src/graphql/queries'
-import { ListRoomsQuery, CreateRoomMutation, CreateRoomInput, OnUpdateRoomSubscription } from '../../API'
+import { ListRoomsQuery, CreateRoomMutation, CreateRoomInput, OnUpdateRoomSubscription, OnCreateStudentSubscription } from '../../API'
 import roomStore from './store'
 import { v4 as uuid } from 'uuid'
 import { Observable, Subscription } from 'rxjs'
@@ -69,12 +69,17 @@ export default {
         console.log("initializing subscription to room: " + roomId)
         const roomObservable: any = API.graphql(graphqlOperation(onCreateStudent, {
             filter: {
-                roomTeacherId: { eq: roomId }
+                roomId: { eq: "roomId" }
             }
         }))
         if (!roomChanges) {
             roomChanges = roomObservable.subscribe({
-                next: (response) => {console.log(response)}, // update room info in store
+                next: ({value}) => {
+                    let newStudent: OnCreateStudentSubscription = value?.data?.onCreateStudent;
+                    if (newStudent) {
+                        // add new student to active room
+                    }
+                }, // update room info in store
                 error: (e) => {console.log(e)}
             })
         }

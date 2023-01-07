@@ -2,36 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getStudent = /* GraphQL */ `
-  query GetStudent($id: ID!) {
-    getStudent(id: $id) {
-      id
-      name
-      status
-      room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-      }
-      createdAt
-      updatedAt
-      roomStudentId
-    }
-  }
-`;
 export const listStudents = /* GraphQL */ `
   query ListStudents(
     $filter: ModelStudentFilterInput
@@ -42,14 +12,9 @@ export const listStudents = /* GraphQL */ `
       items {
         id
         name
+        email
         status
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
+        history
         createdAt
         updatedAt
         roomStudentId
@@ -65,26 +30,10 @@ export const getTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-          teacherRoomId
-        }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -99,18 +48,32 @@ export const listTeachers = /* GraphQL */ `
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getStudent = /* GraphQL */ `
+  query GetStudent($id: ID!) {
+    getStudent(id: $id) {
+      id
+      name
+      email
+      status
+      history
+      room {
+        id
+        name
+        code
         createdAt
         updatedAt
         teacherRoomId
       }
-      nextToken
+      createdAt
+      updatedAt
+      roomStudentId
     }
   }
 `;
@@ -118,36 +81,21 @@ export const getRoom = /* GraphQL */ `
   query GetRoom($id: ID!) {
     getRoom(id: $id) {
       id
+      name
       teacher {
         id
         name
         email
-        room {
-          id
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-        }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
-        items {
-          id
-          name
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
         nextToken
       }
       code
       createdAt
       updatedAt
-      roomTeacherId
+      teacherRoomId
     }
   }
 `;
@@ -183,7 +131,34 @@ export const listRooms = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        # roomTeacherId
+        teacherRoomId
+      }
+      nextToken
+    }
+  }
+`;
+export const getRoomByCode = /* GraphQL */ `
+  query GetRoomByCode(
+    $code: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRoomFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getRoomByCode(
+      code: $code
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        code
+        createdAt
+        updatedAt
+        teacherRoomId
       }
       nextToken
     }

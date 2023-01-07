@@ -31,6 +31,7 @@ export class RoomDetailPage implements OnInit, OnDestroy {
     })
 
     this.newStudentSubscription = Room.initRoomSubscription(this.id)
+    console.log(this.newStudentSubscription)
   }
 
   ngOnDestroy() {
