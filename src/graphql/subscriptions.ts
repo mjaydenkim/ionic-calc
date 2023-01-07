@@ -18,6 +18,7 @@ export const onCreateStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId
@@ -40,6 +41,7 @@ export const onUpdateStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId
@@ -62,6 +64,7 @@ export const onDeleteStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId

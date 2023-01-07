@@ -15,6 +15,7 @@ export const listStudents = /* GraphQL */ `
         email
         status
         history
+        roomId
         createdAt
         updatedAt
         roomStudentId
@@ -71,6 +72,7 @@ export const getStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId

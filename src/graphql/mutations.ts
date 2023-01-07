@@ -122,6 +122,7 @@ export const createStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId
@@ -147,6 +148,7 @@ export const updateStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId
@@ -172,6 +174,7 @@ export const deleteStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
+      roomId
       createdAt
       updatedAt
       roomStudentId
