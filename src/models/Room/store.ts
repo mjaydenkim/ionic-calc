@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
-import { Student } from 'src/API';
+import { map, first } from 'rxjs/operators'
+import { Room, Student } from 'src/API';
 
 const defaultStore = {
     active: null,
@@ -203,9 +203,22 @@ export default {
         }
     },
     addStudentToRoom(student: Partial<Student>) {
-        // find active room in store.all (can use getActive())
-        // once the active room is returned, append student to room.student.items
-        // once the student is appended, update new room in store.all
+        this.getActive().pipe(first()).subscribe(
+            (room: Room) => {
+                this.addOne(
+                    {
+                        ...room,
+                        student: {
+                            ...room.student,
+                            items: [
+                                ...room.student.items,
+                                student
+                            ]
+                        }
+                    }
+                )
+            }
+        )
     },
     setState(partialState: any) {
         const currentState = roomStore.getValue()

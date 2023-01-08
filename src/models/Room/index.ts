@@ -38,8 +38,8 @@ export default {
                 name: name,
                 id: uuid(),
                 code: nanoid(4),
-                students: [],
-                roomTeacherId: user.attributes.sub
+                // students: [],
+                teacherRoomId: user.attributes.sub
             })
             
             // await API.graphql(graphqlOperation(createRoom, {
@@ -58,11 +58,11 @@ export default {
         }
     },
 
-    // async postNewRoom(input: CreateRoomInput): Promise<{data: CreateRoomMutation}> {
-    async postNewRoom(input: CreateRoomInput) {
-        return API.graphql(graphqlOperation(
+    async postNewRoom(input: CreateRoomInput): Promise<{data: CreateRoomMutation}> {
+        const response: any = await API.graphql(graphqlOperation(
             createRoom, { input: input }
         ));
+        return response
     },
     
     initRoomSubscription(roomId: string): Subscription {
@@ -75,8 +75,10 @@ export default {
         if (!roomChanges) {
             roomChanges = roomObservable.subscribe({
                 next: ({value}) => {
-                    let newStudent: OnCreateStudentSubscription = value?.data?.onCreateStudent;
+                    let newStudent: OnCreateStudentSubscription['onCreateStudent'] = value?.data?.onCreateStudent;
+                    console.log(value)
                     if (newStudent) {
+                        roomStore.addStudentToRoom(newStudent)
                         // add new student to active room
                     }
                 }, // update room info in store
