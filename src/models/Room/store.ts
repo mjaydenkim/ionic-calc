@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { map, first } from 'rxjs/operators'
+import { map, first, last } from 'rxjs/operators'
 import { Room, Student } from 'src/API';
 
 const defaultStore = {
@@ -203,8 +203,9 @@ export default {
         }
     },
     addStudentToRoom(student: Partial<Student>) {
-        this.getActive().pipe(first()).subscribe(
+        this.getActive().pipe(last()).subscribe(
             (room: Room) => {
+                console.log(room)
                 this.addOne(
                     {
                         ...room,

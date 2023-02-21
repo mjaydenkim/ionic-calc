@@ -18,7 +18,7 @@ export const onCreateStudent = /* GraphQL */ `
         updatedAt
         teacherRoomId
       }
-      roomId
+      # roomId
       createdAt
       updatedAt
       roomStudentId

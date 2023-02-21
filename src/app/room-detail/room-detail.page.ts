@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import roomStore from '../../models/Room/store'
 import Room from '../../models/Room'
+import { ActivityService } from '../services/activity.service';
 
 @Component({
   selector: 'app-room-detail',
@@ -16,9 +17,8 @@ export class RoomDetailPage implements OnInit, OnDestroy {
   room: any = {}
   students: any[] = []
   roomSubscription: Subscription
-  newStudentSubscription: Subscription
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private activity: ActivityService) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -30,13 +30,12 @@ export class RoomDetailPage implements OnInit, OnDestroy {
       this.students = room.student.items
     })
 
-    this.newStudentSubscription = Room.initRoomSubscription(this.id)
-    console.log(this.newStudentSubscription)
+    this.activity.initRoomSubscription(this.id)
   }
 
   ngOnDestroy() {
     this.roomSubscription.unsubscribe()
-    Room.unsubscribeRoom()
+    this.activity.unsubscribeRoom()
   }
 
 }
