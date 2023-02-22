@@ -9,6 +9,7 @@ export const onCreateStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -18,7 +19,6 @@ export const onCreateStudent = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -26,8 +26,7 @@ export const onCreateStudent = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -42,6 +41,7 @@ export const onUpdateStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -51,7 +51,6 @@ export const onUpdateStudent = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -59,8 +58,7 @@ export const onUpdateStudent = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -75,6 +73,7 @@ export const onDeleteStudent = /* GraphQL */ `
       name
       email
       status
+      history
       room {
         id
         name
@@ -84,7 +83,6 @@ export const onDeleteStudent = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          teacherRoomId
         }
         student {
           nextToken
@@ -92,8 +90,7 @@ export const onDeleteStudent = /* GraphQL */ `
         code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
+        teacherRoomId
       }
       createdAt
       updatedAt
@@ -111,28 +108,18 @@ export const onCreateTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -146,28 +133,18 @@ export const onUpdateTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
-          nextToken
-        }
-        code
-        createdAt
-        updatedAt
-        roomTeacherId
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      teacherRoomId
     }
   }
 `;
@@ -181,82 +158,59 @@ export const onDeleteTeacher = /* GraphQL */ `
       name
       email
       room {
-        id
-        name
-        teacher {
+        items {
           id
           name
-          email
+          code
           createdAt
           updatedAt
           teacherRoomId
         }
-        student {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRoom = /* GraphQL */ `
+  subscription OnCreateRoom($filter: ModelSubscriptionRoomFilterInput) {
+    onCreateRoom(filter: $filter) {
+      id
+      name
+      teacher {
+        id
+        name
+        email
+        room {
           nextToken
         }
-        code
         createdAt
         updatedAt
-        roomTeacherId
-        owner
       }
+      student {
+        items {
+          id
+          name
+          email
+          status
+          history
+          createdAt
+          updatedAt
+          roomStudentId
+        }
+        nextToken
+      }
+      code
       createdAt
       updatedAt
       teacherRoomId
     }
   }
 `;
-export const onCreateRoom = /* GraphQL */ `
-  subscription OnCreateRoom(
-    $filter: ModelSubscriptionRoomFilterInput
-    $owner: String
-  ) {
-    onCreateRoom(filter: $filter, owner: $owner) {
-      id
-      name
-      teacher {
-        id
-        name
-        email
-        room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
-        }
-        createdAt
-        updatedAt
-        teacherRoomId
-      }
-      student {
-        items {
-          id
-          name
-          email
-          status
-          createdAt
-          updatedAt
-          roomStudentId
-        }
-        nextToken
-      }
-      code
-      createdAt
-      updatedAt
-      roomTeacherId
-      owner
-    }
-  }
-`;
 export const onUpdateRoom = /* GraphQL */ `
-  subscription OnUpdateRoom(
-    $filter: ModelSubscriptionRoomFilterInput
-    $owner: String
-  ) {
-    onUpdateRoom(filter: $filter, owner: $owner) {
+  subscription OnUpdateRoom($filter: ModelSubscriptionRoomFilterInput) {
+    onUpdateRoom(filter: $filter) {
       id
       name
       teacher {
@@ -264,17 +218,10 @@ export const onUpdateRoom = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
         items {
@@ -282,6 +229,7 @@ export const onUpdateRoom = /* GraphQL */ `
           name
           email
           status
+          history
           createdAt
           updatedAt
           roomStudentId
@@ -291,17 +239,13 @@ export const onUpdateRoom = /* GraphQL */ `
       code
       createdAt
       updatedAt
-      roomTeacherId
-      owner
+      teacherRoomId
     }
   }
 `;
 export const onDeleteRoom = /* GraphQL */ `
-  subscription OnDeleteRoom(
-    $filter: ModelSubscriptionRoomFilterInput
-    $owner: String
-  ) {
-    onDeleteRoom(filter: $filter, owner: $owner) {
+  subscription OnDeleteRoom($filter: ModelSubscriptionRoomFilterInput) {
+    onDeleteRoom(filter: $filter) {
       id
       name
       teacher {
@@ -309,17 +253,10 @@ export const onDeleteRoom = /* GraphQL */ `
         name
         email
         room {
-          id
-          name
-          code
-          createdAt
-          updatedAt
-          roomTeacherId
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        teacherRoomId
       }
       student {
         items {
@@ -327,6 +264,7 @@ export const onDeleteRoom = /* GraphQL */ `
           name
           email
           status
+          history
           createdAt
           updatedAt
           roomStudentId
@@ -336,8 +274,7 @@ export const onDeleteRoom = /* GraphQL */ `
       code
       createdAt
       updatedAt
-      roomTeacherId
-      owner
+      teacherRoomId
     }
   }
 `;

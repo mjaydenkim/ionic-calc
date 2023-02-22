@@ -1,9 +1,9 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { RoomService } from '../services/room.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Confirm } from 'notiflix'
+import { RoomService } from '../services/room.service'
 
 @Component({
   selector: 'app-home',
@@ -14,9 +14,21 @@ export class HomePage implements OnInit {
 
   mode = "default";
   isJoining: boolean = false
+  hasJoined: boolean = false
   code: string = ""
 
-  constructor(private roomService: RoomService, private router: Router, private storage: Storage) {}
+  constructor(private roomService: RoomService, private router: Router, private storage: Storage) {
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        firstValueFrom(this.roomService.getActiveRoom()).then((c) => {
+          if (c && c.code != null) {
+            this.hasJoined = true;
+          }
+        })
+        // if (firstValueFrom(this.roomService.getActiveRoom()))//you're in a room, then remove button lol!
+      }
+   });
+  }
 
   changeMode() {
     if (this.mode == "default") {
@@ -34,6 +46,7 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     await this.storage.create();
     this.code = await this.storage.get('room code')
+    console.log(await this.storage.get('last name'))
     console.log(this.code)
     if (this.code != null) {
       Confirm.show(

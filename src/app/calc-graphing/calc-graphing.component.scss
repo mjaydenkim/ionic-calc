@@ -19,7 +19,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     padding: 0.25rem;
-    width: 70%;
+    width: 100%;
     border: 1px solid grey;
     border-radius: 8px;
 }
@@ -30,10 +30,44 @@
     justify-content: space-between;
     margin: 0 auto;
     padding-top: 2.5rem;
-    width: 30%;
     button {
         font-size: 3rem;
         border-radius: 4px;
         width: 3rem;
+    }
+}
+
+ /* Extra small devices (phones, 600px and down) */ 
+@media only screen and (max-width: 600px) {
+    .display-adjuster {
+        width: 100%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .display-adjuster {
+        width: 80%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .display-adjuster {
+        width: 60%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .display-adjuster {
+        width: 45%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .display-adjuster {
+        width: 30%;
     }
 }

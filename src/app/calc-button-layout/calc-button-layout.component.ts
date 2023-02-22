@@ -21,7 +21,8 @@ export const keyLookups = {
   "e^x": "ｅ^",
   "1/x": "1/",
   "10^x": "10^",
-  e: "ｅ", // mathjax is thrown off by this
+  e: "ｅ", // mathjax is thrown off by this,
+  graph: "="
 }
 
 @Component({
@@ -82,7 +83,7 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
     ["1", "2", "3", "-", "π"],
-    ["0", ".", "=", "+", "e"]
+    ["0", ".", "graph", "+", "e"]
   ]
 
   graphing2ndLayout = [
@@ -91,7 +92,7 @@ export class CalcButtonLayoutComponent implements OnInit, OnChanges {
     ["7", "8", "9", "/", "("],
     ["4", "5", "6", "*", ")"],
     ["1", "2", "3", "-", "π"],
-    ["0", ".", "=", "+", "e"]
+    ["0", ".", "graph", "+", "e"]
   ]
 
   graphingDisplayedLayout = this.graphingDefaultLayout
