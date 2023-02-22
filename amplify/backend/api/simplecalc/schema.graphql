@@ -27,6 +27,7 @@ type Student @model @auth(rules: [
   status: String!
   history: [String]
   room: Room! @belongsTo
+  roomId: ID!
 }
 
 type Teacher @model @auth(rules: [{allow: owner, ownerField: "id"}]) {
