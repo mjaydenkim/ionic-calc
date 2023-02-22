@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import API, { graphqlOperation } from '@aws-amplify/API'
 import { Storage } from '@ionic/storage-angular';
+import Notiflix, { Notify } from 'notiflix';
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs';
 import { CreateStudentMutation, Room, Student, UpdateStudentMutation } from 'src/API';
 import { createStudent, updateStudent } from 'src/graphql/mutations';
-import { getRoomByCode } from 'src/graphql/queries';
+import { getRoomByCode, getStudent } from 'src/graphql/queries';
 
 @Injectable({
   providedIn: 'root'
@@ -65,36 +66,63 @@ export class RoomService {
         input: {
           name: firstName + " " + lastName,
           email,
-          status: "Online",
-          roomStudentId: roomId
+          status: "Offline",
+          roomStudentId: roomId,
+          roomId
         }
       }
     })
-    return response
+    return response.data
+  }
+  async findStudentById(id: string): Promise<Student> {
+    const response: any = await API.graphql({
+      query: getStudent,
+      authMode: 'AWS_IAM',
+      variables: {
+        id
+      }
+    })
+    return response.data.getStudent
   }
   findStudentByEmail(email: string): Promise<Student> {
     return new Promise(null)
   }
-  // async joinRoom(roomId: string, studentId: string): Promise<UpdateStudentMutation> {
-
-  //   return response
-  // }
-  async addStudentToRoom(firstName: string, lastName: string, email: string): Promise<CreateStudentMutation['createStudent']> {
+  async addStudentToRoom(firstName: string, lastName: string, email: string): Promise<Partial<CreateStudentMutation['createStudent']>> {
     // query room to test if student exists -- might need to allow querying student by email
     const room: Room = await firstValueFrom(this.getActiveRoom())
     const roomId: string = room?.id
+    const studentId = await this.storage.get('student id') // TODO: new student or existing student?????
+    const savedFirstName = await this.storage.get('first name')
+    const savedLastName = await this.storage.get('last name')
+    const savedEmail = await this.storage.get('student email')
     // call findStudentByEmail(email); once you get the student, add to room
-    // add if/else to see if student exists or if they're new
-    return this.createStudent(firstName, lastName, email, roomId).then(
-      (studentMutation): CreateStudentMutation['createStudent'] => {
-        const currentInfo = this.roomSubject.getValue()
-        this.roomSubject.next({
-          active: currentInfo.active,
-          activeStudent: studentMutation.createStudent, // TODO: play around with this, fix bugs, etc. will meet l8r
-          code: currentInfo.code,
-        })
-        return studentMutation.createStudent
+    // add if/else to see if student exists or if they're new  
+    const student = await this.findStudentById(studentId)
+    console.log(firstName + " " + savedFirstName)
+    if (studentId && firstName == savedFirstName && lastName == savedLastName && email == savedEmail) { // email should be unique. use notify to communicate to user that an email already exists, etc
+      const currentInfo = this.roomSubject.getValue()
+      this.roomSubject.next({
+        active: currentInfo.active,
+        activeStudent: student,
+        code: currentInfo.code,
       })
+      return new Promise(
+        (resolve) => {
+          return resolve(student)
+        }
+      ) // why is id null lol!?
+    } else {
+      return this.createStudent(firstName, lastName, email, roomId).then(
+        (studentMutation): CreateStudentMutation['createStudent'] => {
+          const currentInfo = this.roomSubject.getValue()
+          this.roomSubject.next({
+            active: currentInfo.active,
+            activeStudent: studentMutation.createStudent, // TODO: play around with this, fix bugs, etc. will meet l8r
+            code: currentInfo.code,
+          })
+          return studentMutation.createStudent
+      })
+    }
   }
   // leave room
   // update student status

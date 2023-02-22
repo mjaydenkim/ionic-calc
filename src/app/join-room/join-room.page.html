@@ -14,15 +14,15 @@
     <form (submit)="submit($event)" class="room-form">
       <ion-item>
         <ion-label>First name:</ion-label>
-        <ion-input (change)="handleInputChange($event, 'firstName')" type="text" name="firstName"></ion-input>
+        <ion-input (change)="handleFirstNameChange($event)" type="text" name="firstName" [value]="firstName"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Last name:</ion-label>
-        <ion-input (change)="handleInputChange($event, 'lastName')" type="text" name="lastName"></ion-input>
+        <ion-input (change)="handleLastNameChange($event)" type="text" name="lastName" [value]="lastName"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Student email:</ion-label>
-        <ion-input (change)="handleInputChange($event, 'studentEmail')" type="text" name="studentEmail"></ion-input>
+        <ion-input (change)="handleEmailChange($event)" type="email" name="studentEmail" [value]="studentEmail"></ion-input>
       </ion-item>
       <br />
       <ion-button type="submit" shape="round">Join room</ion-button>

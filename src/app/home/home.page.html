@@ -20,7 +20,7 @@
     <!-- <app-calc-button-layout [mode]="mode"></app-calc-button-layout> -->
 
     <ion-button (click)="changeMode()" fill="outline" shape="round">Change Mode</ion-button><br/>
-    <ion-button *ngIf="isJoining === false" (click)="joinRoom()" fill="clear" color="secondary">Join Room</ion-button>
+    <ion-button *ngIf="hasJoined === false && isJoining === false" (click)="joinRoom()" fill="clear" color="secondary">Join Room</ion-button>
     <form *ngIf="isJoining === true" (submit)="finishJoin()" class="room-code">
       <ion-input [(ngModel)]="code" name="code" placeholder="Join code" maxLength="4"></ion-input>
       <ion-button type="submit" fill="clear" color="secondary">Next</ion-button>
