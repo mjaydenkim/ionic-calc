@@ -203,23 +203,34 @@ export default {
         }
     },
     addStudentToRoom(student: Partial<Student>) {
-        this.getActive().pipe(last()).subscribe(
-            (room: Room) => {
-                console.log(room)
-                this.addOne(
-                    {
-                        ...room,
-                        student: {
-                            ...room.student,
-                            items: [
-                                ...room.student.items,
-                                student
-                            ]
-                        }
-                    }
-                )
-            }
-        )
+        console.log(student)
+        const allRooms = roomStore.getValue()['all']
+        const roomId = student?.roomStudentId
+        let studentRoom: any = allRooms[roomId] // was Partial<Room>
+        console.log(studentRoom)
+
+        // write room to store
+        const currentStudents = studentRoom.student.items
+        const nextStudents: Student[] = [...currentStudents, student]
+        studentRoom.student.items = nextStudents
+        this.addOne(studentRoom)
+        // this.getActive().pipe(last()).subscribe(
+        //     (room: Room) => {
+        //         console.log(room)
+        //         this.addOne(
+        //             {
+        //                 ...room,
+        //                 student: {
+        //                     ...room.student,
+        //                     items: [
+        //                         ...room.student.items,
+        //                         student
+        //                     ]
+        //                 }
+        //             }
+        //         )
+        //     }
+        // )
     },
     setState(partialState: any) {
         const currentState = roomStore.getValue()
