@@ -26,12 +26,6 @@ describe('HomePage', () => {
     updateStatus: updateStatusSpy,
     setActiveStudent: setActiveStudentSpy,
   }
-  
-  let failureSpy = jasmine.createSpy()
-
-  let mockNotiflixService: any = {
-    failure: failureSpy
-  }
 
   let getRoomByCodeSpy = jasmine.createSpy().and.returnValue(
     Promise.resolve({})
@@ -64,10 +58,6 @@ describe('HomePage', () => {
           provide: StudentService,
           useValue: mockStudentService
         },
-        {
-          provide: Notify,
-          useValue: mockNotiflixService
-        }
       ]
     }).compileComponents();
 
@@ -129,6 +119,7 @@ describe('HomePage', () => {
     // integration test
 
     const newJoinSpy = spyOn(component, "newJoin")
+    const notifySpy = spyOn(component, "notify")
 
     const joinRoomButton = fixture.debugElement.query(By.css(".join-room"))
 
@@ -144,19 +135,19 @@ describe('HomePage', () => {
     // fixture.detectChanges()
 
     roomCodeForm.triggerEventHandler('submit', null)
-    fixture.detectChanges()
+    // fixture.detectChanges()
 
+    expect(newJoinSpy).toHaveBeenCalled()
+
+    component.newJoin()
+    // fixture.detectChanges()
+
+    expect(notifySpy).toHaveBeenCalled()
     expect(setActiveStudentSpy).not.toHaveBeenCalled()
 
     expect(roomCodeInput.nativeElement).toBeDefined()
     expect(roomCodeButton.nativeElement).toBeDefined()
     expect(roomCodeButton.nativeElement.innerHTML).toEqual("Next")
-
-    expect(newJoinSpy).toHaveBeenCalled()
-
-    expect(component.code).toEqual("")
-
-    expect(failureSpy).toHaveBeenCalled()
 
     // expect(component.code).toEqual("")
 

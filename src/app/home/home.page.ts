@@ -51,6 +51,10 @@ export class HomePage implements OnInit, OnDestroy {
     this.isJoining = true
   }
 
+  notify(message: string) {
+    Notify.failure(message)
+  }
+
   async ngOnInit() {
     let student = await this.studentService.getActiveStudent();
     this.code = student?.room?.code
@@ -82,7 +86,7 @@ export class HomePage implements OnInit, OnDestroy {
         console.log(e)
       }
     } else {
-      Notify.failure("Invalid code");
+      this.notify("Invalid code");
     }
   }
 
