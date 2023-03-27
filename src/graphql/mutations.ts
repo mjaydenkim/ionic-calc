@@ -202,13 +202,13 @@ export const updateStudent = /* GraphQL */ `
       room {
         id
         name
-        teacher {
-          id
-          name
-          email
-          createdAt
-          updatedAt
-        }
+        # teacher {
+        #   id
+        #   name
+        #   email
+        #   createdAt
+        #   updatedAt
+        # }
         student {
           nextToken
         }

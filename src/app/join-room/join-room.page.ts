@@ -17,25 +17,16 @@ export class JoinRoomPage implements OnInit {
   firstName: string = ""
   lastName: string = ""
   studentEmail: string = ""
-  id: string = ""
 
-  constructor(private roomService: RoomService, private router: Router, private storage: Storage) {
-    this.code = this.roomService.getRoomCode() 
+  constructor(private roomService: RoomService, private router: Router) {
+    this.roomService.getRoomCode().then(
+      (code) => {
+        this.code = code
+      }
+    )
   }
 
   async ngOnInit() {
-    // this.firstName = await this.storage.get('first name')
-    // this.lastName = await this.storage.get('last name')
-    // this.studentEmail = await this.storage.get('student email')
-    // if (this.firstName != null && this.lastName != null && this.studentEmail != null) {
-    //   this.roomService.addStudentToRoom(this.firstName, this.lastName, this.studentEmail).then(
-    //     (student) => {
-    //       console.log(student)
-    //       this.storage.set('student id', this.id)
-    //       // this.router.navigate(["home"]) // TODO: check if a user with this information already exists. if so, log into that account. 
-    //     }
-    //   )
-    // }
     this.loadRoom()
   }
 
@@ -53,14 +44,9 @@ export class JoinRoomPage implements OnInit {
 
   async submit(event: any) {
     event.preventDefault()
-    console.log(" First name: " + this.firstName + " Last name: " + this.lastName + " Student email: " + this.studentEmail + " ID: " + this.id)
+    console.log(" First name: " + this.firstName + " Last name: " + this.lastName + " Student email: " + this.studentEmail)
     this.roomService.addStudentToRoom(this.firstName, this.lastName, this.studentEmail).then( // explicitly check whether or not the name, email match!
-      async (student) => {
-        this.id = student.id
-        await this.storage.set('student id', this.id)
-        await this.storage.set('first name', this.firstName)
-        await this.storage.set('last name', this.lastName)
-        await this.storage.set('student email', this.studentEmail)
+      () => {
         this.router.navigate(["home"])
       }
     )

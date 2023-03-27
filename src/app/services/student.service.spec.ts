@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Storage } from '@ionic/storage-angular';
 
-import { RoomService } from './room.service';
+import { StudentService } from './student.service';
 
-describe('RoomService', () => {
-  let service: RoomService;
+describe('StudentService', () => {
+  let service: StudentService;
 
   let setStorageSpy = jasmine.createSpy()
   let getStorageSpy = jasmine.createSpy()
@@ -23,11 +23,11 @@ describe('RoomService', () => {
       providers: [
         {
           provide: Storage,
-          useValue: mockStorage
+          useValue: mockStorage // can be a variable hooked up with a spy
         }
       ]
     });
-    service = TestBed.inject(RoomService);
+    service = TestBed.inject(StudentService);
   });
 
   it('should be created', () => {
