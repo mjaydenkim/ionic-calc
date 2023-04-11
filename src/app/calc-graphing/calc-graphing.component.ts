@@ -6,10 +6,6 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
 
-import { CalcButtonService } from '../services/calc-button.service';
-import { FunctionPlotDatum } from 'function-plot/dist/types';
-import * as math from 'mathjs';
-
 Notify.init({
   "clickToClose": true
 })
@@ -20,11 +16,10 @@ Notify.init({
   styleUrls: ['./calc-graphing.component.scss'],
 })
 
-export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
+export class CalcGraphingComponent implements AfterViewInit {
 
   mode: string = "graphing" // constant
 
-  buttonSubscription: Subscription
   domainRight: number = 10
   domainLeft: number = -10
   errorCaught: boolean = false
@@ -33,99 +28,55 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
   @ViewChild("div1", { static: true }) div1;
 
   expression = "x";
-  display = "x";
+  defaultDisplay = "x";
 
-  constructor(public buttonService: CalcButtonService) {
-    this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
-  }
+  constructor() { }
 
   ngAfterViewInit() {
     const group = [];
-    group.push(this.createGraph(this.div1.nativeElement));
+    group.push(this.createGraph(this.div1.nativeElement, [this.defaultDisplay]));
   }
 
-  ngOnDestroy() {
-    this.buttonSubscription.unsubscribe()
-  }
-
-  createGraph(element: Element): Chart {
-
-    var data: FunctionPlotDatum = {
-      fn: process(this.display),
-    }
-
-    // if (!this.expression.includes("ln(")) {
-    //   data.graphType = 'polyline'
-    // } // ln untraceable ????
-
+  createGraph(element: Element, fn: string[]): Chart {
     return functionPlot({
       width: 300,
       height: 200,
-      xAxis: {domain: [this.domainLeft, this.domainRight]},
-      // yAxis: {domain: [math.evaluate(process(this.expression), {x: this.domainLeft}), math.evaluate(process(this.expression), {x: this.domainRight})]},
-      data: [{
-        fn: this.display,
+      xAxis: { domain: [this.domainLeft, this.domainRight] },
+      grid: true,
+      data: fn.map((f) => ({
+        fn: process(f),
         graphType: 'polyline'
-      }],
-      target: '#root',
-      // data: [data],
+      })),
+       target: '#root',
     });
   }
 
-  handlePress(event) {
-    if (this.errorCaught) {
-      this.expression = ""
-      this.errorCaught = false
-    }
-    if (this.keyboardMode == 1 && event != "2nd") {
-      this.keyboardMode = 0
-    }
-    if (event == "default") {}
-    else if (event == "2nd") {
-      this.keyboardMode = 1
-    }
-    else if (event == "CE") {
-      this.expression = ""
-    }
-    else if (event == "←") {
-      this.expression = this.expression.slice(0, -1)
-    }
-    else if (event == "=") {
-      const group = [];
-      try {
-        group.push(this.createGraph(this.div1.nativeElement));
-        this.domainRight = 10
-        this.domainLeft = -10
+  handleGraphing(event: string[]) {
+    console.log(event)
+    const group = [];
+    try {
+      group.push(this.createGraph(this.div1.nativeElement, event));
+      // todo: dynamic domain inference
+      this.domainRight = 10
+      this.domainLeft = -10
+    } catch (e) {
+      console.log(e.message);
+      try { // autocorrects missing parentheses error (and other errors if they're coded into catchmathjaxerror, but none are right now)
+        // if (catchMathJaxError(event, e) != null) {
+          // event = catchMathJaxError(exp, e)
+        group.push(this.createGraph(this.div1.nativeElement, event));
+        // }
       } catch (e) {
-        console.log(e.message)
-        try {
-          if (catchMathJaxError(this.expression, e) != null) {
-            this.expression = catchMathJaxError(this.expression, e)
-            group.push(this.createGraph(this.div1.nativeElement));
-          }
-        } catch (e) {
-          // this.dangerToast(e)
+        if (("" + e).includes("no statements saved")) {
+          Notify.failure("Empty expression detected")
+        } else {
           Notify.failure("" + e);
         }
       }
     }
-    else {
-      this.expression += event // TODO: handle rounding for large numbers
-    }
-    this.display = this.expression
-    console.log(this.display)
   }
 
-  handleRight() {
-    this.domainRight += 1
-    // this.domainLeft += 1
-    this.createGraph(this.div1.nativeElement)
+  handleKeyboardModeChange(event: number) {
+    this.keyboardMode = event;
   }
-  
-  handleLeft() {
-    this.domainLeft -= 1
-    // this.domainRight -= 1
-    this.createGraph(this.div1.nativeElement)
-  }
-
 }

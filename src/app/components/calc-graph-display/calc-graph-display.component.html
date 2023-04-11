@@ -1,0 +1,12 @@
+<div class="graph-display">
+  <ng-katex [equation]="expression[activeExpression]"></ng-katex> <!-- only render active expression -->
+</div>
+
+<div class="input-options">
+  <ion-button (click)="addExpression()" color="secondary" fill="clear">+ Add Expr</ion-button>
+  <select class="form-control" (change)="changeActiveExpression($event)">
+    <option *ngFor="let eq of expression" [value]="eq" [selected]="expression[activeExpression] == eq">
+      {{eq}}
+    </option>
+  </select>
+</div>
