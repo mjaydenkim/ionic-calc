@@ -30,6 +30,8 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+/android
+/ios
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
@@ -50,4 +52,5 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 **.sample
+
 #amplify-do-not-edit-end
