@@ -6,5 +6,6 @@ export default function process(expr: string) {
     for (let i = 0; i < replaceList.length; i++) {
         expr = expr.replace(replaceList[i][0], replaceList[i][1])
     }
+    console.log(expr)
     return expr
 }
