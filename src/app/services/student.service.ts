@@ -46,13 +46,10 @@ export class StudentService implements OnDestroy {
           if (student) {
             this.liveActiveStudent.next(JSON.parse(student))
           }
-          // this.activeStudent = JSON.parse(student)
         }
       )
     })
   }
-
-  // activeStudent?: Student
 
   async createStudent(firstName: string, lastName: string, email: string, roomId: string): Promise<CreateStudentMutation["createStudent"]> {
     const response: any = await API.graphql({
@@ -95,17 +92,9 @@ export class StudentService implements OnDestroy {
   }
   async getActiveStudent(): Promise<Student> {
     if (!this.liveActiveStudent.getValue()) {
-      // this.storage.get('student').then(student => console.log(student))
       let activeStudent = JSON.parse(await this.storage.get('student'))
       console.log(activeStudent)
       return activeStudent
-      // this.storage.get('student').then(
-      //   (student) => {
-      //     this.activeStudent = JSON.parse(student)
-      //     console.log(this.activeStudent)
-      //     return this.activeStudent
-      //   }
-      // )
     } else {
       return firstValueFrom(this.liveActiveStudent)
     }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CalcButtonService } from '../../services/calc-button.service';
 
@@ -7,7 +7,7 @@ import { CalcButtonService } from '../../services/calc-button.service';
   templateUrl: './calc-graph-display.component.html',
   styleUrls: ['./calc-graph-display.component.scss'],
 })
-export class CalcGraphDisplayComponent implements OnInit {
+export class CalcGraphDisplayComponent implements OnInit, OnDestroy {
 
   @Output() onGraph: EventEmitter<string[]> = new EventEmitter<string[]>(); // should emit array of strings
   @Output() keyboardModeChange: EventEmitter<number> = new EventEmitter<number>();
@@ -25,6 +25,10 @@ export class CalcGraphDisplayComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    this.buttonSubscription?.unsubscribe()
+  }
 
   addExpression() {
     this.expression.push("")

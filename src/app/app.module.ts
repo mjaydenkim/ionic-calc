@@ -20,7 +20,6 @@ import { ComponentsModule } from './components/components.module';
         AppRoutingModule,
         BrowserAnimationsModule,
         IonicStorageModule.forRoot(),
-        ComponentsModule
         ],
     providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
     bootstrap: [AppComponent],

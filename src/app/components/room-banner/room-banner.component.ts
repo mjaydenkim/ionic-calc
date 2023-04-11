@@ -9,7 +9,7 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class RoomBannerComponent implements OnInit {
 
-  name: String = ""
+  name: string = ""
 
   constructor(private studentService: StudentService, private roomService: RoomService) { }
 

@@ -16,11 +16,10 @@ Notify.init({
   styleUrls: ['./calc-graphing.component.scss'],
 })
 
-export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
+export class CalcGraphingComponent implements AfterViewInit {
 
   mode: string = "graphing" // constant
 
-  buttonSubscription: Subscription
   domainRight: number = 10
   domainLeft: number = -10
   errorCaught: boolean = false
@@ -30,17 +29,12 @@ export class CalcGraphingComponent implements AfterViewInit, OnDestroy {
 
   expression = "x";
   defaultDisplay = "x";
-  data = []
 
   constructor() { }
 
   ngAfterViewInit() {
     const group = [];
     group.push(this.createGraph(this.div1.nativeElement, [this.defaultDisplay]));
-  }
-
-  ngOnDestroy() {
-    this.buttonSubscription?.unsubscribe()
   }
 
   createGraph(element: Element, fn: string[]): Chart {
