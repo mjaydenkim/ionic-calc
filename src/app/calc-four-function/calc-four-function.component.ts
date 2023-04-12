@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { CalcButtonService } from '../services/calc-button.service';
 import { Subscription } from 'rxjs'
 import process from '../utilities/process';
@@ -6,6 +6,7 @@ import { create, all } from 'mathjs';
 
 import { primaryButtons } from '../calc-button-layout/calc-button-layout.component'; 
 import { Notify } from 'notiflix';
+import { HistoryEvent } from '../home/home.page';
 
 Notify.init({
   "clickToClose": true
@@ -38,6 +39,8 @@ math.import({
 })
 
 export class CalcFourFunctionComponent implements OnInit, OnDestroy {
+
+  @Output() appendHistory: EventEmitter<HistoryEvent> = new EventEmitter<HistoryEvent>();
 
   mode: string = "default" // constant
 
@@ -115,6 +118,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
         try {
           this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 13}))
           this.finished = true
+          this.appendHistory.emit({equation: this.display, answer: this.answer})
         } catch (err) {
           Notify.failure("" + err);
         }

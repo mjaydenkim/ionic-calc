@@ -8,6 +8,7 @@ import { createStudent, updateStudent } from 'src/graphql/mutations';
 import { getStudent } from 'src/graphql/queries';
 import { PluginListenerHandle } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import { HistoryEvent } from '../home/home.page';
 
 type Status = "online" | "idle" | "offline" | "exited" | "inactive"
 
@@ -109,6 +110,22 @@ export class StudentService implements OnDestroy {
       input: {
         id: activeStudent.id,
         status
+      }
+    }))
+    this.setActiveStudent(updatedStudent?.data?.updateStudent)
+  }
+  async updateHistory(activeStudent: Student, newHistory: HistoryEvent) {
+    const currentHistory = activeStudent.history || []
+    const newHistoryTimestamped = {...newHistory, timestamp: new Date(Date.now()).toISOString()}
+    let updatedHistory = [...currentHistory, JSON.stringify(newHistoryTimestamped)]
+    this.setActiveStudent({
+      ...activeStudent,
+      history: updatedHistory
+    })
+    const updatedStudent: any = await API.graphql(graphqlOperation(updateStudent, {
+      input: {
+        id: activeStudent.id,
+        history: updatedHistory
       }
     }))
     this.setActiveStudent(updatedStudent?.data?.updateStudent)

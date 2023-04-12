@@ -16,8 +16,8 @@
   
   <div id="container">
 
-    <app-calc-graphing *ngIf="mode === 'graphing'"></app-calc-graphing>
-    <app-calc-four-function *ngIf="mode === 'default'"></app-calc-four-function>
+    <app-calc-graphing *ngIf="mode === 'graphing'" (appendHistory)="handleHistoryChange($event)"></app-calc-graphing>
+    <app-calc-four-function *ngIf="mode === 'default'" (appendHistory)="handleHistoryChange($event)"></app-calc-four-function>
     <!-- <app-calc-button-layout [mode]="mode"></app-calc-button-layout> -->
 
     <ion-button (click)="changeMode()" fill="outline" shape="round">Change Mode</ion-button><br/>
