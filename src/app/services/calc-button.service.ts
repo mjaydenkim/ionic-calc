@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class CalcButtonService {
   keySubject: Subject<string> = new Subject()
-  lastHistory: string[][] = []
+  lastHistory: string[][] = [] // only stores calc 4f history
 
   constructor() { }
 

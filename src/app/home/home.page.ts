@@ -5,6 +5,12 @@ import { Confirm, Notify } from 'notiflix'
 import { RoomService } from '../services/room.service'
 import { StudentService } from '../services/student.service';
 
+export interface HistoryEvent {
+  timestamp?: string;
+  equation: string;
+  answer: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,6 +24,7 @@ export class HomePage implements OnInit, OnDestroy {
   code: string = ""
   routerSub: Subscription
   roomSub: Subscription
+  // history: could have an output var that calls a service in the home page. or could have separate services for both pages.
 
   constructor(private roomService: RoomService, private router: Router, private studentService: StudentService) {
     this.routerSub = this.router.events.subscribe((e) => {
@@ -101,6 +108,13 @@ export class HomePage implements OnInit, OnDestroy {
       this.roomService.addStudentToRoom(name.split(" ")[0], name.split(" ")[name.split(" ").length - 1], email)
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  async handleHistoryChange(event: HistoryEvent) {
+    const activeStudent = await this.studentService.getActiveStudent()
+    if (activeStudent && activeStudent.id) {
+      this.studentService.updateHistory(activeStudent, event)
     }
   }
 

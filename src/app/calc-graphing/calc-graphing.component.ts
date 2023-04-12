@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import functionPlot, { Chart } from 'function-plot'
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import process from '../utilities/process';
 import catchMathJaxError from '../utilities/catchMathJaxError';
+import { HistoryEvent } from '../home/home.page';
 
 Notify.init({
   "clickToClose": true
@@ -17,6 +18,8 @@ Notify.init({
 })
 
 export class CalcGraphingComponent implements AfterViewInit {
+
+  @Output() appendHistory: EventEmitter<HistoryEvent> = new EventEmitter<HistoryEvent>();
 
   mode: string = "graphing" // constant
 
@@ -52,26 +55,26 @@ export class CalcGraphingComponent implements AfterViewInit {
   }
 
   handleGraphing(event: string[]) {
-    console.log(event)
     const group = [];
     try {
       group.push(this.createGraph(this.div1.nativeElement, event));
+      this.appendHistory.emit({equation: event.join("; "), answer: "graph"})
       // todo: dynamic domain inference
       this.domainRight = 10
       this.domainLeft = -10
     } catch (e) {
       console.log(e.message);
-      try { // autocorrects missing parentheses error (and other errors if they're coded into catchmathjaxerror, but none are right now)
-        // if (catchMathJaxError(event, e) != null) {
-          // event = catchMathJaxError(exp, e)
-        group.push(this.createGraph(this.div1.nativeElement, event));
-        // }
-      } catch (e) {
-        if (("" + e).includes("no statements saved")) {
-          Notify.failure("Empty expression detected")
-        } else {
-          Notify.failure("" + e);
-        }
+      // try { // autocorrects missing parentheses error (and other errors if they're coded into catchmathjaxerror, but none are right now)
+      //   // if (catchMathJaxError(event, e) != null) {
+      //     // event = catchMathJaxError(exp, e)
+      //   group.push(this.createGraph(this.div1.nativeElement, event));
+      //   this.appendHistory.emit({equation: this.expression, answer: "graph"})
+      //   // }
+      // } catch (e) {
+      if (("" + e).includes("no statements saved")) {
+        Notify.failure("Empty expression detected")
+      } else {
+        Notify.failure("" + e);
       }
     }
   }
