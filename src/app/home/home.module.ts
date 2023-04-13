@@ -10,7 +10,6 @@ import { CalcGraphingComponent } from '../calc-graphing/calc-graphing.component'
 import { CalcFourFunctionComponent } from '../calc-four-function/calc-four-function.component';
 import { CalcButtonLayoutComponent } from '../calc-button-layout/calc-button-layout.component';
 import { KatexModule } from 'ng-katex';
-import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule,
     HomePageRoutingModule,
     KatexModule,
-    ComponentsModule
   ],
   declarations: [HomePage, CalcButtonComponent, CalcGraphingComponent, CalcFourFunctionComponent, CalcButtonLayoutComponent]
 })
