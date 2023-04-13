@@ -1,0 +1,29 @@
+.graph-display {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    width: 100%;
+    min-height: 2.5rem;
+    height: fit-content;
+    border: 1px solid grey;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+    overflow-x: auto;
+}
+
+.input-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+    height: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
