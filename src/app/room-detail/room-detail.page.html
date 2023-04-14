@@ -16,10 +16,9 @@
 
     <!-- Table Body -->
 
-    <ion-row *ngFor="let student of students">
-      <ion-col>{{student.name}}</ion-col>
-      <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
-    </ion-row>
-
-</ion-grid>
+      <ion-row *ngFor="let student of students">
+        <ion-col>{{student.name}}</ion-col>
+        <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
