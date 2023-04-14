@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import API, { graphqlOperation } from '@aws-amplify/API'
+import { API } from '@aws-amplify/API'
 import { Storage } from '@ionic/storage-angular';
-import Notiflix, { Notify } from 'notiflix';
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs';
-import { CreateStudentMutation, Room, Student, UpdateStudentMutation } from 'src/API';
-import { createStudent, updateStudent } from 'src/graphql/mutations';
-import { getRoomByCode, getStudent } from 'src/graphql/queries';
+import { CreateStudentMutation, Room } from 'src/API';
+import { getRoomByCode } from 'src/graphql/queries';
 import { StudentService } from './student.service';
 
 @Injectable({
