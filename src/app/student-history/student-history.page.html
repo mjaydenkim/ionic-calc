@@ -1,9 +1,16 @@
-<ion-header>
+<ion-header class="history-header">
+  <ion-back-button></ion-back-button>
   <ion-toolbar>
-    <ion-title>student-history</ion-title>
+    <ion-title>{{student.name}}'s Calculator History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  test test test
+  <div class="student-history-container">
+    <div class="history-item" *ngFor="let event of history">
+      <p><ng-katex [equation]="event?.equation"></ng-katex></p>
+      <p> = <ng-katex [equation]="event?.answer"></ng-katex></p>
+      <p>{{event?.timestamp}}</p>
+    </div>
+  </div>
 </ion-content>

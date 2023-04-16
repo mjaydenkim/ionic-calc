@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import roomStore from '../../models/Room/store'
 import Room from '../../models/Room'
 import { ActivityService } from '../services/activity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-detail',
@@ -18,7 +19,7 @@ export class RoomDetailPage implements OnInit, OnDestroy {
   students: any[] = []
   roomSubscription: Subscription
 
-  constructor(private route: ActivatedRoute, private activity: ActivityService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private activity: ActivityService) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -29,6 +30,7 @@ export class RoomDetailPage implements OnInit, OnDestroy {
       console.log(this.room)
       this.students = room.student.items
     })
+    roomStore.setAllStudents(this.students)
 
     this.activity.initRoomSubscription(this.id)
   }
@@ -36,6 +38,12 @@ export class RoomDetailPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.roomSubscription.unsubscribe()
     this.activity.unsubscribeRoom()
+  }
+
+  handleClick(id: string) {
+    console.log(id)
+    roomStore.setActiveStudent(id)
+    this.router.navigate(['/student-history/', id])
   }
 
 }

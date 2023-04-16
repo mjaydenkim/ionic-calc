@@ -8,12 +8,15 @@ import { StudentHistoryPageRoutingModule } from './student-history-routing.modul
 
 import { StudentHistoryPage } from './student-history.page';
 
+import { KatexModule } from 'ng-katex' 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StudentHistoryPageRoutingModule
+    StudentHistoryPageRoutingModule,
+    KatexModule
   ],
   declarations: [StudentHistoryPage]
 })

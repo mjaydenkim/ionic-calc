@@ -1,14 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import roomStore from 'src/models/Room/store';
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'student-history',
   templateUrl: './student-history.page.html',
   styleUrls: ['./student-history.page.scss'],
 })
-export class StudentHistoryPage implements OnInit {
+export class StudentHistoryPage implements OnInit, OnDestroy {
 
-  @Input() student: any;
+  id: string
+  student: any
+  studentSub: Subscription
+  history: any[] = []
 
   constructor(private route: ActivatedRoute) {
     // route.params.subscribe()
@@ -17,7 +22,22 @@ export class StudentHistoryPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.student)
+    this.id = this.route.snapshot.paramMap.get('id')
+    console.log(this.id)
+    this.studentSub = roomStore.getActiveStudent().subscribe(student => {
+      this.student = student
+      this.history = this.student?.history?.reverse().map((historyItem: string) => {
+        let parsedHistory = JSON.parse(historyItem)
+        return {
+          ...parsedHistory,
+          timestamp: new Date(parsedHistory.timestamp).toLocaleString()
+        }
+      })
+    })
+  }
+
+  ngOnDestroy() {
+    this.studentSub.unsubscribe()
   }
 
 }

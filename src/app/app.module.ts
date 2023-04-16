@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomDetailPageModule } from './room-detail/room-detail.module';
 import { ComponentsModule } from './components/components.module';
 
+import { KatexModule } from 'ng-katex'
+
 @NgModule({
     declarations: [AppComponent],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, RoomDetailPageModule, ComponentsModule], // make the import work here for table

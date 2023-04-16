@@ -1,0 +1,27 @@
+.history-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.student-history-container {
+    font-size: 1.5rem;
+    padding: 2rem;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    p:first-child {
+        width: 50%
+    }
+    p:last-child {
+        font-size: 1rem;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    p {
+        width: 25%
+    }
+}

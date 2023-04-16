@@ -15,8 +15,7 @@
     </ion-row>
 
     <!-- Table Body -->
-
-      <ion-row *ngFor="let student of students">
+      <ion-row class="student-row" *ngFor="let student of students" (click)="handleClick(student?.id)">
         <ion-col>{{student.name}}</ion-col>
         <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
       </ion-row>

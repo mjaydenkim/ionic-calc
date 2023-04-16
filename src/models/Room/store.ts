@@ -4,7 +4,9 @@ import { Room, Student } from 'src/API';
 
 const defaultStore = {
     active: null,
-    all: {} // all is a key-value pair of room ID -- room properties. should be able to look up a room by its ID, get students as property
+    all: {}, // all is a key-value pair of room ID -- room properties. should be able to look up a room by its ID, get students as property
+    activeStudent: null,
+    allStudents: {}
 }
 
 export const fakeStore = {
@@ -174,6 +176,42 @@ export default {
             all: nextAll
         })
     },
+    getAllStudents(): any {
+        return roomStore.asObservable().pipe(
+            map(store => Object.values(store.allStudents))
+        )
+    },
+    getStudent(id: string): Observable<any> { // feature-limited because it doesn't allow teachers to get a student/view history after a room is no longer in the store
+        return roomStore.asObservable().pipe(
+            map(store => store.allStudents[id] ? store.allStudents[id] : null)
+        )
+    }, 
+    getActiveStudent(): Observable<any> {
+        return roomStore.asObservable().pipe(
+            map(({allStudents, activeStudent}) => 
+                allStudents && activeStudent && allStudents[activeStudent] 
+                    ? allStudents[activeStudent] 
+                    : null
+            )
+        )
+    },
+    setActiveStudent(id: string) {
+        this.setState({
+            activeStudent: id
+        })
+    },
+    setAllStudents(objects: any[]): any {
+        let nextAll = {}
+        for (let item of objects) {
+            if (item.id) {
+                nextAll[item.id] = item
+            }
+        }
+        this.setState({
+            allStudents: nextAll
+        })
+    },
+    // create methods to set/get all students, allowing you to query students from roomstore
     getOne(id: string): Observable<any> {
         return roomStore.asObservable().pipe(
             map(store => store.all[id] ? store.all[id] : null)

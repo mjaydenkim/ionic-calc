@@ -35,6 +35,14 @@ ion-grid {
     }
 }
 
+.student-row {
+  cursor: pointer;
+}
+
+ion-grid .student-row:hover {
+  background-color: lightgray;
+}
+
 .Online {
   color: forestgreen;
   font-weight: 500;

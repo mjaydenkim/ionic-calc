@@ -6,13 +6,14 @@ import { IonicModule } from '@ionic/angular';
 
 import { RoomDetailPage } from './room-detail.page';
 import { StudentHistoryPageModule } from '../student-history/student-history.module';
+import { KatexModule } from 'ng-katex';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StudentHistoryPageModule
+    StudentHistoryPageModule,
   ],
   declarations: [RoomDetailPage],
   exports: [

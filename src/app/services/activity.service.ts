@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Subscription } from 'rxjs';
 import { OnCreateStudentSubscription } from 'src/API';
-import { onCreateStudent } from 'src/graphql/subscriptions';
+import { onCreateStudent, onUpdateStudent } from 'src/graphql/subscriptions';
 import roomStore from 'src/models/Room/store';
 
 @Injectable({
@@ -11,6 +11,7 @@ import roomStore from 'src/models/Room/store';
 export class ActivityService {
 
   roomObservable: any = null
+  studentObservable: any = null
   roomSubscription: Subscription = null
 
   constructor() { }
@@ -20,7 +21,7 @@ export class ActivityService {
 
     this.unsubscribeRoom()
 
-    this.roomObservable = API.graphql(graphqlOperation(onCreateStudent
+    this.roomObservable = API.graphql(graphqlOperation(onCreateStudent // see if filter functionality has been fixed by amplify v5
     //   {
     //   // filter: {
     //   //   roomId: { eq: roomId }
@@ -32,7 +33,7 @@ export class ActivityService {
         next: ({ value }) => {
           let newStudent: OnCreateStudentSubscription['onCreateStudent'] = value?.data?.onCreateStudent;
           console.log(value)
-          if (newStudent) {
+          if (newStudent && newStudent.roomId === roomId) {
             roomStore.addStudentToRoom(newStudent)
             // add new student to active room
           }
@@ -41,6 +42,16 @@ export class ActivityService {
       })
     }
     return this.roomSubscription
+  }
+
+  initStudentSubscription(studentId: string) {
+    this.studentObservable = API.graphql(graphqlOperation(onUpdateStudent, 
+      {
+        filter: {
+          id: { eq: studentId }
+        }
+      })
+    )
   }
 
   unsubscribeRoom() {
