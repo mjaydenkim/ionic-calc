@@ -4,11 +4,12 @@ import { RoomBannerComponent } from './room-banner/room-banner.component';
 import { CalcGraphDisplayComponent } from './calc-graph-display/calc-graph-display.component';
 import { KatexModule } from 'ng-katex';
 import { FormsModule } from '@angular/forms';
+import { CalcGraphCalculationsComponent } from './calc-graph-calculations/calc-graph-calculations.component';
 
 
 
 @NgModule({
-  declarations: [RoomBannerComponent, CalcGraphDisplayComponent],
+  declarations: [RoomBannerComponent, CalcGraphDisplayComponent, CalcGraphCalculationsComponent],
   imports: [
     CommonModule,
     KatexModule,
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     RoomBannerComponent,
-    CalcGraphDisplayComponent
+    CalcGraphDisplayComponent,
+    CalcGraphCalculationsComponent
   ]
 })
 export class ComponentsModule {}

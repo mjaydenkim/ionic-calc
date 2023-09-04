@@ -4,12 +4,14 @@
     <div class="container">
       <div #div1 class="graph" id="root" layout-align="center start"></div>
       <div class="display-adjuster">
-        <calc-graph-display (onGraph)="handleGraphing($event)" (keyboardModeChange)="handleKeyboardModeChange($event)"
+        <calc-graph-display (onGraph)="handleGraphing($event)" (keyboardModeChange)="handleKeyboardModeChange($event)" (activeExpressionOutput)="handleActiveExpressionChange($event)"
           style="width:100%;"></calc-graph-display>
       </div>
     </div>
   </ion-col>
   <ion-col size-sm="6">
+    <!-- <calc-graph-calculations [activeExpression]="activeExpression" [equations]="equations" [x]="x" [graphChanged]="graphChanged"></calc-graph-calculations> -->
+      <calc-graph-calculations *ngIf="equations?.length > 0" [equations]="equations" [activeExpression]="activeExpression" [graphChanged]="graphChanged"></calc-graph-calculations>
     <app-calc-button-layout class="keyboard" [mode]=this.mode
       [keyboardDisplayed]=this.keyboardMode></app-calc-button-layout>
   </ion-col>

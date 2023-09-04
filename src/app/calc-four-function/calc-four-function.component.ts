@@ -30,6 +30,12 @@ math.import({
       Notify.failure("Format of permutations should be nPr(n,r)");
     }
   },
+  DToR: function(n) {
+    return (n % 360) * (Math.PI / 180);
+  },
+  RToD: function(n) {
+    return n * (180/Math.PI);
+  },
 })
 
 @Component({
@@ -51,6 +57,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     "^", "/", "*", "-", "=", "+"
   ]
   keyboardMode: number = 0
+  CEPressed: boolean = false
 
   history: string[][] = [] // use append or spread operator to add element to history
 
@@ -64,7 +71,7 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
   }
 
   constructor(public buttonService: CalcButtonService) { // where the service is declared. don't forget public -- allows the rest of the component to access the service
-    this.buttonSubscription = buttonService.listen().subscribe((event) => {this.handlePress(event)})
+    this.buttonSubscription = buttonService.listen().subscribe(({key}) => {this.handlePress(key)})
   }
 
   ngOnInit() {
@@ -97,6 +104,8 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     }
     this.finished = false;
 
+    if (event != "CE") this.CEPressed == false;
+
     if (this.keyboardMode == 1 && event != "2nd" && !primaryButtons.includes(event)) {
       this.keyboardMode = 0
     }
@@ -106,15 +115,29 @@ export class CalcFourFunctionComponent implements OnInit, OnDestroy {
     } else if (event == "ANS") {
       this.display += this.history[this.history.length - 1][1] // is this how i want to do it? process.js?
     } else if (event == "CE") {
+      if (this.CEPressed == true) { // TODO: if was previously cleared!
+        this.history = [[]]
+        this.CEPressed = false;
+      } else {
+        this.CEPressed = true;
+      }
       this.display = ""
       this.answer = ""
     } else if (event == "←") {
       this.display = this.display.slice(0, -1)
     } else if (event == "frac") {
       let fraction = math.fraction(this.history[this.history.length - 1][1])
+      this.display = "frac(" + this.history[this.history.length - 1][1] + ")"
       this.answer = fraction.n + "/" + fraction.d
-    }
-    else if (event == "=") {
+      this.finished = true;
+      this.appendHistory.emit({equation: this.display, answer: this.answer})
+    } else if (event == "dec") {
+      let fraction = math.fraction(this.history[this.history.length - 1][1])
+      this.display = "dec(" + this.history[this.history.length - 1][1] + ")"
+      this.answer = fraction.n + "/" + fraction.d
+      this.finished = true;
+      this.appendHistory.emit({equation: this.display, answer: this.answer})
+    } else if (event == "=") {
         try {
           this.answer = String(math.format(math.evaluate(process(this.display)), {precision: 13}))
           this.finished = true

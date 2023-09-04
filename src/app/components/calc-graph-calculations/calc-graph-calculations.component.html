@@ -1,0 +1,19 @@
+
+<div class="calc-container">
+    <select (change)="getCalculation($event)" class="calc-select">
+        <option value="value">Value:</option>
+        <option value="minimum">Minimum:</option>
+        <option value="maximum">Maximum:</option>
+        <option value="derivative">Derivative:</option>
+        <option value="integral">Integral:</option>
+        <option value="zeroes">Zeroes:</option>
+        <option value="intersects">Intersects:</option>
+    </select>
+    <ion-input *ngIf="isIntegral" type="text" class="calc-input" [value]="inputValue[0]" (ionChange)="handleIntegral($event)" (ionFocus)="lowerInputActivated()"></ion-input>
+    <p *ngIf="isIntegral"> to</p>
+    <ion-input type="text" class="calc-input" [value]="inputValue[1]" (ionChange)="inputChanged($event)" (ionFocus)="inputActivated()"></ion-input> 
+    <!--  -->
+</div>
+
+<p *ngIf="type != 'intersects'">Solution: {{answer}}</p>
+<p *ngIf="type == 'intersects'">Solution: x = {{answer}}</p>

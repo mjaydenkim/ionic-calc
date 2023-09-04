@@ -11,6 +11,7 @@ export class CalcGraphDisplayComponent implements OnInit {
 
   @Output() onGraph: EventEmitter<string[]> = new EventEmitter<string[]>(); // should emit array of strings
   @Output() keyboardModeChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() activeExpressionOutput: EventEmitter<number> = new EventEmitter<number>();
 
   expression: string[] = [""]
   activeExpression: number = 0 // (index of active expression)
@@ -19,9 +20,12 @@ export class CalcGraphDisplayComponent implements OnInit {
   lastMode: number = 0
 
   constructor(public buttonService: CalcButtonService) {
-    this.buttonSubscription = buttonService.listen().subscribe((event) => {
-      this.handlePress(event)
+    this.buttonSubscription = buttonService.listen().subscribe(({lastFocusedId, key}) => {
+      if (lastFocusedId == "graph" || key == "default" || key == "2nd" || key == "←") {
+        this.handlePress(key)
+      }
     })
+    this.buttonService.setLastFocus("graph")
   }
 
   ngOnInit() {}
@@ -33,6 +37,7 @@ export class CalcGraphDisplayComponent implements OnInit {
 
   changeActiveExpression(event: any) {
     this.activeExpression = this.expression.indexOf(event.target.value)
+    this.activeExpressionOutput.emit(this.activeExpression)
   }
 
   handlePress(event) {
@@ -62,6 +67,10 @@ export class CalcGraphDisplayComponent implements OnInit {
       this.expression[this.activeExpression] += event // TODO: handle rounding for large numbers
     }
     console.log(this.expression)
+  }
+
+  handleExpressionClick(event: any) {
+    this.buttonService.setLastFocus("graph")
   }
 
 }

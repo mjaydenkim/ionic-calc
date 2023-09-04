@@ -1,0 +1,21 @@
+.calc-container {
+    width: 20rem;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.calc-select {
+    width: 15rem;
+    height: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.calc-input {
+    width: 4rem;
+    text-align: center;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
+}
