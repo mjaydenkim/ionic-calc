@@ -187,6 +187,17 @@ export default {
         )
     }, 
     getActiveStudent(): Observable<any> {
+        // if (!roomStore.getValue().activeStudent) {
+        //     this.storage.create().then(() => {
+        //         this.storage.get('id').then(
+        //             (id) => {
+        //                 if (id) {
+        //                     this.setActiveStudent(id)
+        //                 }
+        //             }
+        //         )
+        //     })
+        // }
         return roomStore.asObservable().pipe(
             map(({allStudents, activeStudent}) => 
                 allStudents && activeStudent && allStudents[activeStudent] 
@@ -195,10 +206,22 @@ export default {
             )
         )
     },
+    getActiveStudentHistory(): Observable<any> {
+        return roomStore.asObservable().pipe(
+            map(({allStudents, activeStudent}) => 
+                allStudents && activeStudent && allStudents[activeStudent] 
+                    ? allStudents[activeStudent].history
+                    : null
+            )
+        )
+    },
     setActiveStudent(id: string) {
         this.setState({
+            
             activeStudent: id
         })
+        console.log(roomStore)
+        // this.storage.set('id', id)
     },
     setAllStudents(objects: any[]): any {
         let nextAll = {}

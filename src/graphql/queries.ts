@@ -128,6 +128,7 @@ export const listRooms = /* GraphQL */ `
             status
             createdAt
             updatedAt
+            roomId
           }
         }
         code

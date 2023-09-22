@@ -16,7 +16,7 @@ let studentChanges: Subscription = null
 
 export default {
     async load(): Promise<Rooms> {
-        try {
+        try { // TODO: filter classrooms by ownership FROM THE BACKEND!!!
             const result: any = await API.graphql(graphqlOperation(listRooms))
             if (result && result.data && result.data.listRooms && result.data.listRooms.items) {
                 roomStore.setAll(result.data.listRooms.items)
@@ -30,11 +30,11 @@ export default {
         }
     },
 
-    async create(name: string) {
+    async create(name: string): Promise<any> {
         const user = await Auth.currentAuthenticatedUser()
         console.log(user.attributes.sub)
         try {
-            const results: any = this.postNewRoom({
+            const results: any = await this.postNewRoom({
                 name: name,
                 id: uuid(),
                 code: nanoid(4),
@@ -49,12 +49,12 @@ export default {
             //         code: nanoid(4)
             //     }
             // }))
-            if (results && results.createRoom) {
-                roomStore.addOne(results.createRoom)
-                return results.createRoom
+            if (results && results.data && results.data.createRoom) {
+                roomStore.addOne(results.data.createRoom)
+                return results.data.createRoom
             }
         } catch (e) {
-            console.error(e)
+            return Promise.reject(e)
         }
     },
 

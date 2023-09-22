@@ -11,15 +11,16 @@ import Room from '../../models/Room'
 })
 export class HomeGuardService implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     // return storeMethods.getAll().pipe(
     return Room.load().then((rooms: any[]) => {
           if (rooms && rooms.length) {
             return this.router.parseUrl("/room-list");
+          } else {
+            return this.router.parseUrl("/auth");
           }
-          return true
         }
       )
   }

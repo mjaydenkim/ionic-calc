@@ -10,11 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomDetailPageModule } from './room-detail/room-detail.module';
 import { ComponentsModule } from './components/components.module';
 
+import { IonicStorageModule } from '@ionic/storage-angular';
+
 import { KatexModule } from 'ng-katex'
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, RoomDetailPageModule, ComponentsModule], // make the import work here for table
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, RoomDetailPageModule, ComponentsModule, IonicStorageModule.forRoot()], // make the import work here for table
     providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
     bootstrap: [AppComponent]
 })

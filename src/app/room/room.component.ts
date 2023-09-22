@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Room from '../../models/Room'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -8,7 +9,7 @@ import Room from '../../models/Room'
 })
 export class RoomComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
@@ -27,7 +28,12 @@ export class RoomComponent implements OnInit {
     // console.log(roomResults)
     // frontend only
     Room.create(this.name).then((newRoom) => {
-      console.log(newRoom) // code isn't updated
+      console.log(newRoom)
+      this.router.navigate(["room", newRoom.id])
     })
+  }
+
+  goBack() {
+    this.router.navigate([".."])
   }
 }

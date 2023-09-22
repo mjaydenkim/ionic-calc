@@ -1,41 +1,49 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Room List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticator.authStatus === 'authenticated'" (click)="logout()">Log out</ion-button>
+      <ion-button *ngIf="authenticator.authStatus != 'authenticated'" (click)="this.router.navigateByUrl('/auth')">Create account/Log in</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
 
-    <!-- Header -->
-    <ion-row>
-      <ion-col>Name</ion-col>
-      <ion-col>Code</ion-col>
-      <ion-col>Students</ion-col>
-      <ion-col>Status</ion-col>
-    </ion-row>
+    <h1 *ngIf="authenticator.authStatus != 'authenticated'">Not logged in. Create an account or log in at the button in the top-right!</h1>
+    <h1 *ngIf="rooms.length == 0 && authenticator.authStatus === 'authenticated'">No rooms yet. Why not create one?</h1>
+    <div *ngIf="rooms.length != 0" class="room-list-table">
+      <!-- Header -->
+      <ion-row>
+        <ion-col>Name</ion-col>
+        <ion-col>Code</ion-col>
+        <ion-col>Students</ion-col>
+        <ion-col>Status</ion-col>
+      </ion-row>
 
-    <!-- Table Body -->
-    <ion-row *ngFor="let room of rooms; let i=index" (click)="selectRow(i)">
-      <ion-col>
-        {{room.name}}
-      </ion-col>
-      <ion-col>
-        {{room.code}}
-      </ion-col>
-      <ion-col>
-        <strong class="count">{{room.student.items.length}}</strong>
-        (<span *ngIf="room.student.items.length >= 1" class="student-name" [ngClass]="room.student.items[0].status">{{room.student.items[0].name}}</span><span *ngIf="room.student.items.length == 1">)</span>
-        <span *ngIf="room.student.items.length >= 2" class="student-name" [ngClass]="room.student.items[1].status"> {{room.student.items[1].name}}</span><span *ngIf="room.student.items.length == 2">)</span>
-        <span *ngIf="room.student.items.length >= 3" class="student-name">...)</span>
-      </ion-col>
-      <ion-col>
-        {{room.status}}
-      </ion-col>
-    </ion-row>
+      <!-- Table Body -->
+        <ion-row *ngFor="let room of rooms; let i=index" (click)="selectRow(i)">
+          <ion-col>
+            {{room.name}}
+          </ion-col>
+          <ion-col>
+            {{room.code}}
+          </ion-col>
+          <ion-col>
+            <strong class="count">{{room.student.items.length}}</strong>
+            (<span *ngIf="room.student.items.length >= 1" class="student-name" [ngClass]="room.student.items[0].status">{{room.student.items[0].name}}</span><span *ngIf="room.student.items.length == 1">)</span>
+            <span *ngIf="room.student.items.length >= 2" class="student-name" [ngClass]="room.student.items[1].status"> {{room.student.items[1].name}}</span><span *ngIf="room.student.items.length == 2">)</span>
+            <span *ngIf="room.student.items.length >= 3" class="student-name">...)</span>
+          </ion-col>
+          <ion-col>
+            {{room.status}}
+          </ion-col>
+        </ion-row>
+    </div>
     
   </ion-grid>
 
-  <create-room-button></create-room-button>
+  <create-room-button *ngIf="authenticator.authStatus === 'authenticated'"></create-room-button>
 
 </ion-content>

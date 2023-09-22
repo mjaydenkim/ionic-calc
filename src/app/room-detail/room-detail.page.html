@@ -1,23 +1,32 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="refresh()">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+      </ion-button>    
+      <ion-back-button defaultHref="/room-list" (click)="goBack()"></ion-back-button>  
+    </ion-buttons>
     <ion-title>{{room.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <h1 *ngIf="students.length == 0">No students yet. Room code: {{room.code}}</h1>
+  <div *ngIf="students.length != 0" class="table-body">
+    <ion-grid>
 
-    <!-- Header -->
+      <!-- Header -->
 
-    <ion-row>
-      <ion-col>Name</ion-col>
-      <ion-col>Status</ion-col>
-    </ion-row>
-
-    <!-- Table Body -->
-      <ion-row class="student-row" *ngFor="let student of students" (click)="handleClick(student?.id)">
-        <ion-col>{{student.name}}</ion-col>
-        <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
+      <ion-row>
+        <ion-col>Name</ion-col>
+        <ion-col>Status</ion-col>
       </ion-row>
+
+      <!-- Table Body -->
+        <ion-row class="student-row" *ngFor="let student of students" (click)="handleClick(student?.id)">
+          <ion-col>{{student.name}}</ion-col>
+          <ion-col [ngClass]="student.status">{{student.status}}</ion-col>
+        </ion-row>
     </ion-grid>
+  </div>
 </ion-content>

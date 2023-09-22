@@ -15,4 +15,7 @@
       <button (click)="signOut()">Sign Out</button>
     </ng-template>
   </amplify-authenticator>
+
+  <button *ngIf="authenticator.route === 'authenticated'" (click)="goToRoomList()">Go to Room List</button>
+
 </ion-content>

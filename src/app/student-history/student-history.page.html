@@ -1,5 +1,8 @@
 <ion-header class="history-header">
   <ion-back-button></ion-back-button>
+  <ion-button (click)="refresh()">
+    <ion-icon slot="start" name="refresh-outline"></ion-icon>
+  </ion-button>
   <ion-toolbar>
     <ion-title>{{student.name}}'s Calculator History</ion-title>
   </ion-toolbar>
